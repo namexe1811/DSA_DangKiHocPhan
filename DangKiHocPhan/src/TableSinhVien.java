@@ -39,7 +39,7 @@ public class TableSinhVien {
         danhSachSinhVien[(index + i) % size] = sv;
     }
     //tìm vị trí học sinh trong mảng
-    public SinhVien get(String key) {
+    public SinhVien get(int key) {
         int index = hash(key);
         int i = 0;
         while (danhSachSinhVien[(index + i) % size] != null) {
