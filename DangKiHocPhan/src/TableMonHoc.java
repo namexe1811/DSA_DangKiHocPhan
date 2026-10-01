@@ -44,11 +44,11 @@ public class TableMonHoc {
     }
     //tìm môn học trong mảng
     public MonHoc get(String key) {
-        int h = hash(key);
+        int index = hash(key);
         int i = 0;
-        while (danhSachMonHoc[(h + i) % size] != null) {
-            if (danhSachMonHoc[(h + i) % size].getMaHocPhan().equals(key)) {
-                return danhSachMonHoc[(h + i) % size];
+        while (danhSachMonHoc[(index + i) % size] != null) {
+            if (danhSachMonHoc[(index + i) % size].getMaHocPhan().equals(key)) {
+                return danhSachMonHoc[(index + i) % size];
             }
             i++;
             if (i == size) break;
