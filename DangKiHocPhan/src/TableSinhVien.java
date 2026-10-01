@@ -17,26 +17,12 @@ public class TableSinhVien {
         return size;
     }
     //hàm băm
-    private int hash(String key) {
-        //phần mã hash của số
-        int numPart = 0;
-        String digits = key.replaceAll("\\D", "");//bỏ kí tự ko phải số
-        if (!digits.isEmpty()) {
-            numPart = Integer.parseInt(digits);
-        }
-        //phần chữ
-        int charPart = 0;
-        for (char c : key.toCharArray()) {
-            if (Character.isLetter(c)) {
-                charPart += c; // cộng mã ASCII của chữ
-            }
-        }
-
-        return (numPart + charPart) % size;
+    private int hash(int mssv) {
+        return mssv % size;
     }
     //thêm 1 học sinh vào mảng băm
     public void put(SinhVien sv) {
-        String key = sv.getMSSV();//băm theo mã sinh viên
+        int key = sv.getMSSV();//băm theo mã sinh viên
         int index = hash(key);
         int i = 0;
         while (danhSachSinhVien[(index + i) % size] != null) {
@@ -54,11 +40,11 @@ public class TableSinhVien {
     }
     //tìm vị trí học sinh trong mảng
     public SinhVien get(String key) {
-        int h = hash(key);
+        int index = hash(key);
         int i = 0;
-        while (danhSachSinhVien[(h + i) % size] != null) {
-            if (danhSachSinhVien[(h + i) % size].getMSSV().equals(key)) {
-                return danhSachSinhVien[(h + i) % size];
+        while (danhSachSinhVien[(index + i) % size] != null) {
+            if (danhSachSinhVien[(index + i) % size].getMSSV().equals(key)) {
+                return danhSachSinhVien[(index + i) % size];
             }
             i++;
             if (i == size) break;
