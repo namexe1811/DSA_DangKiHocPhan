@@ -11,11 +11,11 @@ public class TableMonDaDangKi {
     private int soLuong;
     private static final double NGUONG_TAI = 0.75;
 
-    public BangBam() {
+    public TableMonDaDangKi() {
         this(16);
     }
 
-    public BangBam(int size) {
+    public TableMonDaDangKi(int size) {
         this.tableSize = size;
         this.table = new Node[tableSize];
         this.soLuong = 0;
@@ -32,7 +32,7 @@ public class TableMonDaDangKi {
     }
 
 
-    public void them(String giaTri) {
+    public void push(String giaTri) {
         if (coTonTai(giaTri)) return; // khong them trung
         if ((double) (soLuong + 1) / tableSize > NGUONG_TAI) {
             resize(tableSize * 2);
