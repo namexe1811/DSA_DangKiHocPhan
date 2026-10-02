@@ -25,7 +25,7 @@ public class LopHoc {
         this.thoiGianHoc = thoiGianHoc;
         this.siSoToiDa = siSoToiDa;
         this.soLuongDaDangKi = 0;
-        this.danhSachSinhVien = new Node[SoNguyenTo(siSoToiDa)];
+        this.danhSachSinhVien = new Node[SoNguyenTo(siSoToiDa)];//GHI THÊM HÀM ĐỌC SINH VIÊN TỪ MẢNG VÀO HASHTABLE
     }
 
     public String getmaLopHoc() { return maLopHoc; }
