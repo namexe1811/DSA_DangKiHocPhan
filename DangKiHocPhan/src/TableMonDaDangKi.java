@@ -77,7 +77,7 @@ public class TableMonDaDangKi {
         return soLuong;
     }
 
-
+//viết hàm chuyển 1 array thành hashtable
     public String[] toArray() {
         String[] ketQua = new String[soLuong];
         int k = 0;
@@ -91,7 +91,7 @@ public class TableMonDaDangKi {
         return ketQua;
     }
 
-    private void resize(int newSize) {
+    private void resize(int newSize) {//bỏ hàm này đi
         Node[] oldTable = table;
         this.tableSize = newSize;
         this.table = new Node[tableSize];
