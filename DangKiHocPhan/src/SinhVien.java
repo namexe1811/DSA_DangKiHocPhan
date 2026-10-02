@@ -66,22 +66,23 @@ public class SinhVien {
         monDaDangKi.them(maLopHoc);
         soTinDangKi++;
         System.out.println("Dang ky thanh cong lop: " + maLopHoc);
-    }
+    }//LÀM LẠI, TRƯỚC KHI ĐĂNG KÍ MÔN PHẢI KIỂM TRA MÔN TIÊN QUYẾT VÀ MÔN HỌC TRƯỚC,KIỂM TRA XEM MÌNH ĐÃ ĐĂNG KÍ MÔN ĐÓ CHƯA,KIỂM TRA >= 28 LÀ ĐỐI VỚI TÍN CHỈ,KO PHẢI MÔN
+    //LẤY DỮ LIỆU MÔN TỪ ,isFull(),getMon() CỦA CLASS LopHoc,và getMonTienQuyet(),getMonHocTruoc() từ class MonHoc ....vv
 
 
     public void huyLop(String maLopHoc) {
         boolean daXoa = monDaDangKi.xoa(maLopHoc);
         if (daXoa) {
-            soTinDangKi--;
+            soTinDangKi--;//SỐ TÍN CHỈ CỘNG TRỪ TUỲ VÀO SỐ TÍN CHỈ MÔN HỌC(NHỚ DÙNG GET ĐẦY ĐỦ,TRUY VẤN HASHTABLE THÌ NHỚ DÙNG ĐÚNG HÀM TRUY)
             System.out.println("Da huy lop: " + maLopHoc);
         } else {
             System.out.println("Sinh vien chua dang ky lop nay.");
         }
-    }
+    }//phải xoá luôn sinh viên hỏi danh sách lớp,...VV
 
 
     public void hoiLop(String maLopHocCu, String maLopHocMoi) {
-        if (!monDaDangKi.coTonTai(maLopHocCu)) {
+        if (!monDaDangKi.tonTai(maLopHocCu)) {
             System.out.println("Khong tim thay lop cu " + maLopHocCu + " trong danh sach da dang ky.");
             return;
         }
