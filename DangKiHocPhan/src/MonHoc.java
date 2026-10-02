@@ -2,7 +2,6 @@
  * Mô tả ngắn:
  * - Class đại diện cho một môn học trong hệ thống.
  * - Các mảng dữ liệu được khai báo tĩnh theo thiết kế. Kích thước mảng sẽ được
- *   khởi tạo khi đọc dữ liệu từ file JSON.
  */
 public class MonHoc {
     private int soTinChi;
