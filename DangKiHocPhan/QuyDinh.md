@@ -4,3 +4,4 @@
 -thêm vào mảng : them(key)  
 -xoá khỏi mảng:  xoa(key)  
 -tìm xem key có trong mảng ko(trả về boolean): tonTai(key)  
+-đổi 1 mảng sang hashtable(trả về 1 hash table) :toHashTable(array)
