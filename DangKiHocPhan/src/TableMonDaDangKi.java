@@ -1,4 +1,4 @@
-public class BangBam {
+public class TableMonDaDangKi {
 
     private static class Node {
         String key;
