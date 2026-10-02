@@ -9,7 +9,7 @@ public class MonHoc {
     private String maHocPhan;
     
     private String[] nganh; 
-    private LopHoc[] cacLopHoc; 
+    private tableCacLopHoc cacLopHoc; 
     private String[] monHocTruoc; 
     private String[] monTienQuyet; 
     
@@ -18,15 +18,17 @@ public class MonHoc {
 
 
     public MonHoc(int soTinChi, String tenMonHoc, String maHocPhan, 
-                  String[] nganh, String[] monHocTruoc, String[] monTienQuyet, int soLuongLopToiDa) {
+                  String[] nganh, String[] monHocTruoc, String[] monTienQuyet, int soLuongLopToiDa,LopHoc[] cacLopHoc) {
         this.soTinChi = soTinChi;
         this.tenMonHoc = tenMonHoc;
         this.maHocPhan = maHocPhan;
         this.nganh = nganh;
         this.monHocTruoc = monHocTruoc;
         this.monTienQuyet = monTienQuyet;
-        
         this.cacLopHoc = new LopHoc[soLuongLopToiDa];
+        for(LopHoc lop:cacLopHoc){
+            cacLopHoc.them(LopHoc);
+        }
     }
 
     public String getTenMonHoc() {
