@@ -71,7 +71,7 @@ public class LopHoc {
         return true;
     }
 
-    public boolean xoaSinhVien(int MSSV) {
+    public boolean xoaSinhVien(int MSSV) { //chưa có key mới chay đc còn có key ko chayjk đc
         int idx = hash(MSSV);
         Node prev = null;
         for (Node p = danhSachSinhVien[idx]; p!= null; prev=p, p=p.next) {
