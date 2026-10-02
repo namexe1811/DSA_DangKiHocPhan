@@ -4,4 +4,6 @@
 
 -băm: hash(key)  
 
--thêm vào mảng : put(key)  
+-thêm vào mảng : them(key)  
+-xoá khỏi mảng:  xoa(key)  
+-tìm xem key có trong mảng ko(trả về boolean): tonTai(key)  
