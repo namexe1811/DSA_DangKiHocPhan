@@ -64,7 +64,7 @@ public class MonHoc {
     }
 
     public LopHoc[] toHashTable(LopHoc[] array) {
-        int cap = SoNguyenTo(array.length > 0 ? array.length : 7);
+        int cap = SoNguyenTo(array.length > 0 ? array.length : 0);
         LopHoc[] table = new LopHoc[cap];
         for (LopHoc lop : array) {
             if (lop != null) { // Kiểm tra phần tử bên trong có bị rỗng không
