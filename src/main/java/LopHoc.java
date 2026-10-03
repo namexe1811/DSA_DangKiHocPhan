@@ -1,4 +1,3 @@
-package main.java;
 
 public class LopHoc {
     private static class Node {
@@ -57,7 +56,7 @@ public class LopHoc {
         }
     }
 
-    public boolean TonTai(int MSSV) { //sữa tên Tồn Tại
+    public boolean tonTai(int MSSV) { //sữa tên Tồn Tại
         for (Node p=danhSachSinhVien[hash(MSSV)]; p!= null; p=p.next) {
             if (p.mssv == MSSV) return true;
         }
