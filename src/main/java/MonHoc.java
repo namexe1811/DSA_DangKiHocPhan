@@ -34,7 +34,14 @@ public class MonHoc {
             this.cacLopHoc = new LopHoc[7];
         }
     }
-
+/*
+    Tại sao chọn số nguyên tố ? 
+    - Tính phân tán: Nếu kích thước mảng là một hợp số (ví dụ: 10, 100), các khóa có quy luật toán học (chẳng hạn như các số chẵn, 
+            hoặc các số tận cùng bằng 0) khi chia lấy dư sẽ liên tục hội tụ vào cùng một vài khe cố định. Số nguyên tố (như 31, 100003) 
+                không chia hết cho bất kỳ số nào ngoài 1 và chính nó.Khi dùng nó làm mẫu số trong phép chia lấy dư (hash_code % prime), 
+                    nó phá vỡ mọi quy luật nhịp điệu của dữ liệu đầu vào, ép các chỉ số (index) phải rải đều ngẫu nhiên ra toàn bộ các khe trống.
+    - 
+*/
     private static int SoNguyenTo(int n) {
         if (n < 2) n = 2;
         while (true) {
@@ -47,7 +54,7 @@ public class MonHoc {
         }
     }
 
-    public int hash(String key) {
+    public int hash(String key) { // Chuyển đổi chuỗi -> valid index
         long h = 0;
         int p = 31;
         for (int i = 0; i < key.length(); i++) {
@@ -79,7 +86,7 @@ public class MonHoc {
         return table;
     }
 
-    public boolean them(LopHoc lopHocMoi) {
+    public boolean them(LopHoc lopHocMoi) { //thêm lớp học vào mảng, nếu vị trí đã có người chiếm sẽ tự động trượt sang phải để tìm ô trống kế tiếp (linear probign)
         if (lopHocMoi == null) return false;
         String key = lopHocMoi.getmaLopHoc();
         int idx = hash(key);
@@ -112,7 +119,7 @@ public class MonHoc {
         return null;
     }
 
-    public boolean tonTai(String key) {
+    public boolean tonTai(String key) { //Kiểm tra môn có tổn tại mã này hay không 
         return get(key) != null;
     }
 
