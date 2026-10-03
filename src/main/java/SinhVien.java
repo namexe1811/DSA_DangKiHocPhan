@@ -293,14 +293,16 @@ public class SinhVien {
     //     return tonTaiMonDaTruot(maMonHoc);
     // }
 
-    public String[] danhSachMonDaTruot() {
-        String[] ketQua = new String[soMonDaTruot];
-        for (int i = 0; i < soMonDaTruot; i++) {
-            ketQua[i] = monDaTruot[i];
-        }
-        return ketQua;
-    }
-
+    // public String[] danhSachMonDaTruot() {
+    //     String[] ketQua = new String[soMonDaTruot];
+    //     for (int i = 0; i < soMonDaTruot; i++) {
+    //         ketQua[i] = monDaTruot[i];
+    //     }
+    //     return ketQua;
+    // }
+       public String[] getMonDaTruot() {
+        return monDaTruot;
+       }
     // ===== Thao tác với môn tích luỹ (đã học và pass) =====
 
     // public void themMonTichLuy(String maMonHoc) {
