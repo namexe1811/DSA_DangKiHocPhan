@@ -76,7 +76,7 @@ public class TableMonTichLuy {
     //         if (mon != null) kq[k++] = mon;
     //     }
     //     return kq;
-    // } cái này á là để bảo vệ dữ liệu nó không trả về mảng môn tích lũy mà trả về mảng sao chép , thì nếu cái mảng sao chép bị sửa thì cái mảng cũ không sao 
+    // } cái này á là để bảo vệ dữ liệu nó `không trả về mảng môn tích lũy mà trả về mảng sao chép , thì nếu cái mảng sao chép bị sửa thì cái mảng cũ không sao 
     // public String[] getDanhSachMonTichLuy() {
     //     return danhSach.clone(); // trả về mảng sao chép
     // } viết vầy cũng được 
