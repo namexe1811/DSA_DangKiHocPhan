@@ -14,9 +14,8 @@ public class TableSinhVien {
     private int size;//số lượng sinh viên
     private SinhVien[] danhSachSinhVien;//danh sách sinh viên
     @JsonCreator
-    public TableSinhVien(@JsonProperty("size") int size,
-                         @JsonProperty("danhSachSinhVien") SinhVien[] danhSachSinhVien) {
-        this.size = size;
+    public TableSinhVien(@JsonProperty("danhSachSinhVien") SinhVien[] danhSachSinhVien) {
+        this.size = danhSachSinhVien != null ? danhSachSinhVien.length : 0;
         this.danhSachSinhVien = new SinhVien[size];
         if (danhSachSinhVien != null) {
             for (SinhVien sv : danhSachSinhVien) {

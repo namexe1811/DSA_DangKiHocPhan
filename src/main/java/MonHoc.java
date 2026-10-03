@@ -1,5 +1,9 @@
 /*
  */
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MonHoc {
     private int soTinChi;
     private String tenMonHoc;
@@ -9,13 +13,13 @@ public class MonHoc {
     private String[] monHocTruoc; 
     private String[] monTienQuyet;
     /// 
-
-    public MonHoc(int soTinChi,
-                  String tenMonHoc,
-                  String maHocPhan,
-                  String[] monHocTruoc,
-                  String[] monTienQuyet,
-                  LopHoc[] cacLopHoc)  {
+    @JsonCreator
+    public MonHoc(@JsonProperty("soTinChi") int soTinChi,
+                  @JsonProperty("tenMonHoc") String tenMonHoc,
+                  @JsonProperty("maHocPhan") String maHocPhan,
+                  @JsonProperty("monHocTruoc") String[] monHocTruoc,
+                  @JsonProperty("monTienQuyet") String[] monTienQuyet,
+                  @JsonProperty("cacLopHoc") LopHoc[] cacLopHoc) {
         this.soTinChi = soTinChi;
         this.tenMonHoc = tenMonHoc;
         this.maHocPhan = maHocPhan;
@@ -53,7 +57,7 @@ public class MonHoc {
     }
 
     public LopHoc[] toHashTable(LopHoc[] array) {
-        int cap = SoNguyenTo(array.length > 0 ? array.length * 2 : 7);
+        int cap = SoNguyenTo(array.length > 0 ? array.length : 7);
         LopHoc[] table = new LopHoc[cap];
         for (LopHoc lop : array) {
             if (lop != null) { // Kiểm tra phần tử bên trong có bị rỗng không

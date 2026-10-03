@@ -13,9 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
         private int size;//số lượng môn học
         private MonHoc[] danhSachMonHoc;
     @JsonCreator
-        public TableMonHoc(@JsonProperty("size") int size,
-                        @JsonProperty("danhSachMonHoc") MonHoc[] danhSachMonHoc) {
-            this.size = size;
+        public TableMonHoc(@JsonProperty("danhSachMonHoc") MonHoc[] danhSachMonHoc) {
+            this.size = danhSachMonHoc != null ? danhSachMonHoc.length : 0;
             this.danhSachMonHoc = new MonHoc[size];
             if (danhSachMonHoc != null) {
                 for (MonHoc mh : danhSachMonHoc) {
