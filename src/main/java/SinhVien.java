@@ -5,7 +5,7 @@ public class SinhVien {
     private String ten;
     private int mssv;
     private String nganh;
-    private String[][] thoiKhoaBieu;
+    private String[][] thoiKhoaBieu; 
     private TableMonDaDangKi monDaDangKi;   // lưu MÃ HỌC PHẦN của các môn đã đăng kí
     private int soTinDangKi;
     private MangDong monDaTruot;
