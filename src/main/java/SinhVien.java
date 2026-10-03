@@ -1,34 +1,34 @@
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SinhVien {
 
     private static final int TIN_CHI_TOI_DA = 28;
-    private static final int SO_MON_TOI_DA_CHUONG_TRINH = 60;
 
     private String ten;
     private int mssv;
-    private String nganh;
     private String[][] thoiKhoaBieu;
     private TableMonDaDangKi monDaDangKi;   // lưu MÃ HỌC PHẦN của các môn đã đăng kí
     private int soTinDangKi;
-
-    // ===== MẢNG TĨNH (fixed-size) lưu mã các môn đã trượt =====
-    // kich thuoc CO DINH, viet thang 1 so, khong gan voi hang so nao khac
     private String[] monDaTruot;
-    private int soMonDaTruot;       // so luong mon dang co trong monDaTruot (<= 100)
-
     private TableMonTichLuy monTichLuy;    // lưu MÃ HỌC PHẦN các môn đã học và pass
     private String matKhau;
 
-    public SinhVien(String ten, int mssv, String nganh, String matKhau) {
+    public SinhVien(@JsonProperty("ten") String ten,
+                @JsonProperty("mssv") int mssv,
+                @JsonProperty("thoiKhoaBieu") String[][] thoiKhoaBieu,
+                @JsonProperty("monDaDangKi") String[] monDaDangKi,
+                @JsonProperty("soTinDangKi") int soTinDangKi,
+                @JsonProperty("matKhau") String matKhau,
+                @JsonProperty("monDaTruot") String[] monDaTruot,
+                @JsonProperty("monTichLuy") String[] monTichLuy) {
         this.ten = ten;
         this.mssv = mssv;
-        this.nganh = nganh;
         this.matKhau = matKhau;
-        this.thoiKhoaBieu = new String[14][12];
-        this.monDaDangKi = new TableMonDaDangKi();
-        this.monDaTruot = new String[100]; // khoi tao mang tinh, kich thuoc co dinh
-        this.soMonDaTruot = 0;
-        this.monTichLuy = new TableMonTichLuy(SO_MON_TOI_DA_CHUONG_TRINH, null);
-        this.soTinDangKi = 0;
+        this.thoiKhoaBieu = thoiKhoaBieu;
+        this.monDaDangKi = new TableMonDaDangKi(monDaDangKi);
+        this.monDaTruot = monDaTruot;
+        this.monTichLuy = new TableMonTichLuy(monTichLuy);
+        this.soTinDangKi = soTinDangKi;
     }
 
     public String getTen() {
