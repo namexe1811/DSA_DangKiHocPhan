@@ -1,21 +1,37 @@
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TableMonTichLuy {
+    private static final int SUC_CHUA_TOI_THIEU = 20; 
+    private int size;
+    private String[] danhSachMonTichLuy;//danh sach ma mon da tich luy
 
-    private static final String DA_XOA = "\u0000__DA_XOA__";
-
-    private String[] table;
-    private int tableSize;
-    private int soLuong; 
-    private static final double NGUONG_TAI = 0.75; // load factor de resize
-
-    public TableMonTichLuy() {
-        this(16);
+    @JsonCreator
+    public TableMonTichLuy(@JsonProperty("danhSachMonTichLuy") String[] danhSachMonTichLuy) {
+        int soLuongBanDau = (danhSachMonTichLuy == null) ? 0 : danhSachMonTichLuy.length;
+        this.size = SoNguyenTo(Math.max(soLuongBanDau, SUC_CHUA_TOI_THIEU));
+        this.danhSachMonTichLuy = new String[size];
+        if (danhSachMonTichLuy != null) {
+            for (String ma : danhSachMonTichLuy) {
+                if (ma != null) this.push(ma);
+            }
+        }
     }
 
-    public TableMonTichLuy(int size) {
-        this.tableSize = size;
-        this.table = new String[tableSize];
-        this.soLuong = 0;
+    public int getsize() {
+        return size;
+    }
+
+    private static int SoNguyenTo(int n) {
+        if (n < 2) n = 2;
+        while (true) {
+            boolean ok = true;
+            for (int i = 2; (long) i * i <= n; i++) {
+                if (n % i == 0) { ok = false; break; }
+            }
+            if (ok) return n;
+            n++;
+        }
     }
 
     private int hash(String key) {
@@ -24,85 +40,36 @@ public class TableMonTichLuy {
         for (int i = 0; i < key.length(); i++) {
             h = h * p + key.charAt(i);
         }
-        return (int) (Math.abs(h) % tableSize);
+        return (int) (Math.abs(h) % size);
     }
 
-
-    public void push(String giaTri) {
-        if (coTonTai(giaTri)) return; // không thêm trùng
-        if ((double) (soLuong + 1) / tableSize > NGUONG_TAI) {
-            resize(tableSize * 2);
-        }
-        int idx = hash(giaTri);
-        int buocNhay = 0;
-        // ô trùng thì do sang ô khác
-        while (table[idx] != null && !table[idx].equals(DA_XOA)) {
-            idx = (idx + 1) % tableSize;
-            buocNhay++;
-            if (buocNhay >= tableSize) {
-                resize(tableSize * 2);
-                idx = hash(giaTri);
-                buocNhay = 0;
+    //them 1 ma mon vao mang bam
+    public void push(String maMonHoc) {
+        int index = hash(maMonHoc);//bam theo ma mon hoc
+        int i = 0;
+        while (danhSachMonTichLuy[(index + i) % size] != null) {
+            if (danhSachMonTichLuy[(index + i) % size].equals(maMonHoc)) {
+                return;
+            }
+            i++;
+            if (i == size) {
+                throw new RuntimeException("Bang day!");
             }
         }
-        table[idx] = giaTri;
-        soLuong++;
+        danhSachMonTichLuy[(index + i) % size] = maMonHoc;
     }
 
-    public boolean coTonTai(String giaTri) {
-        int idx = hash(giaTri);
-        int buocNhay = 0;
-
-        while (table[idx] != null && buocNhay < tableSize) {
-            if (!table[idx].equals(DA_XOA) && table[idx].equals(giaTri)) {
+    //tim 1 ma mon trong mang, tra ve true neu co, false neu khong
+    public boolean coTonTai(String key) {
+        int index = hash(key);
+        int i = 0;
+        while (danhSachMonTichLuy[(index + i) % size] != null) {
+            if (danhSachMonTichLuy[(index + i) % size].equals(key)) {
                 return true;
             }
-            idx = (idx + 1) % tableSize;
-            buocNhay++;
+            i++;
+            if (i == size) break;
         }
         return false;
-    }
-
-    public boolean xoa(String giaTri) {
-        int idx = hash(giaTri);
-        int buocNhay = 0;
-        while (table[idx] != null && buocNhay < tableSize) {
-            if (!table[idx].equals(DA_XOA) && table[idx].equals(giaTri)) {
-                table[idx] = DA_XOA;
-                soLuong--;
-                return true;
-            }
-            idx = (idx + 1) % tableSize;
-            buocNhay++;
-        }
-        return false;
-    }
-
-    public int size() {
-        return soLuong;
-    }
-
-
-    public String[] toArray() {
-        String[] ketQua = new String[soLuong];
-        int k = 0;
-        for (String o : table) {
-            if (o != null && !o.equals(DA_XOA)) {
-                ketQua[k++] = o;
-            }
-        }
-        return ketQua;
-    }
-
-    private void resize(int newSize) {
-        String[] oldTable = table;
-        this.tableSize = newSize;
-        this.table = new String[tableSize];
-        this.soLuong = 0;
-        for (String o : oldTable) {
-            if (o != null && !o.equals(DA_XOA)) {
-                push(o);
-            }
-        }
     }
 }
