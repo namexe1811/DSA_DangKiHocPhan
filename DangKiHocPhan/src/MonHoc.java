@@ -9,7 +9,7 @@ public class MonHoc {
     private String maHocPhan;
     
     private String[] nganh; 
-    private tableCacLopHoc cacLopHoc; 
+    private LopHoc[] cacLopHoc; 
     private String[] monHocTruoc; 
     private String[] monTienQuyet; 
     
@@ -26,8 +26,13 @@ public class MonHoc {
         this.monHocTruoc = monHocTruoc;
         this.monTienQuyet = monTienQuyet;
         this.cacLopHoc = new LopHoc[soLuongLopToiDa];
-        for(LopHoc lop:cacLopHoc){
-            cacLopHoc.them(LopHoc);
+        if (cacLopHoc != null) { // Kiểm tra xem mảng cacLopHoc có bị rỗng không
+            for(LopHoc lop : cacLopHoc) {
+                if (lop != null) { 
+                    this.themLop(lop);
+                    // Kiểm tra phần tử bên trong có bị rỗng không
+                }
+            }
         }
     }
 
