@@ -1,4 +1,8 @@
+//table tạm để đọc file
 public class TableSinhVienData {
-    private int size;//số lượng sinh viên
-    private SinhVien[] danhSachSinhVien;//danh sách sinh viên
+    private int soSinhVien;
+    private SinhVien[] danhSachSinhVien;
+
+    public int getsoSinhVien(){return soSinhVien;}
+    public SinhVien[] getdanhSachSinhVien(){return danhSachSinhVien;}
 }
