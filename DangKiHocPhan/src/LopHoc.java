@@ -64,7 +64,7 @@ public class LopHoc {
     }
 
     public boolean themSinhVien(int MSSV) {
-        if (isFull() || coSinhVien(MSSV)) return false;
+        if (isFull() || tonTai(MSSV)) return false;
         int idx=hash(MSSV);
         danhSachSinhVien[idx] = new Node(MSSV, danhSachSinhVien[idx]);
         soLuongDaDangKi++;
