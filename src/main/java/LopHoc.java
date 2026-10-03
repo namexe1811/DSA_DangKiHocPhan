@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class LopHoc {
     private static class Node {
         int mssv;
@@ -11,13 +14,18 @@ public class LopHoc {
     private String maLopHoc;
     private String tenGiaoVien;
     private String maHocPhan;
-    private ThoiGian[] thoiGianHoc;
+    private ThoiGian[] thoiGianHoc;//mảng tĩnh(tối đa 2 phần tử)
     private int siSoToiDa;
     private int soLuongDaDangKi;
     private Node[] danhSachSinhVien;//bảng băm chứa MSSV
 
-    public LopHoc(String maLopHoc, String tenGiaoVien, String maHocPhan,
-                  ThoiGian[] thoiGianHoc, int siSoToiDa, int[] sinhVienDaDangKi) {
+    @JsonCreator
+    public LopHoc(@JsonProperty("maLopHoc") String maLopHoc,
+                @JsonProperty("tenGiaoVien") String tenGiaoVien,
+                @JsonProperty("maHocPhan") String maHocPhan,
+                @JsonProperty("thoiGianHoc") ThoiGian[] thoiGianHoc,
+                @JsonProperty("siSoToiDa") int siSoToiDa,
+                @JsonProperty("sinhVienDaDangKi") int[] sinhVienDaDangKi) {
         this.maLopHoc = maLopHoc;
         this.tenGiaoVien = tenGiaoVien;
         this.maHocPhan = maHocPhan;
@@ -27,14 +35,11 @@ public class LopHoc {
         this.danhSachSinhVien = new Node[SoNguyenTo(siSoToiDa)];
         if (sinhVienDaDangKi != null) {
             for (int mssv : sinhVienDaDangKi) {
-                themSinhVien(mssv); // mỗi lần thêm thì soLuongDaDangKi tăng lên
+                themSinhVien(mssv);
             }
         }
     }
-     public LopHoc(String maLopHoc, String tenGiaoVien, String maHocPhan,
-                  ThoiGian[] thoiGianHoc, int siSoToiDa) {
-        this(maLopHoc, tenGiaoVien, maHocPhan, thoiGianHoc, siSoToiDa, null);
-    }
+
 
     public String getmaLopHoc() { return maLopHoc; }
     public String gettenGiaoVien() { return tenGiaoVien; }
@@ -64,14 +69,14 @@ public class LopHoc {
         }
     }
 
-    public boolean tonTai(int MSSV) { //sữa tên Tồn Tại
+    public boolean tonTai(int MSSV) { //xem sinh viên đó đã có trong lớp chưa
         for (Node p=danhSachSinhVien[hash(MSSV)]; p!= null; p=p.next) {
             if (p.mssv == MSSV) return true;
         }
         return false;
     }
 
-    public boolean themSinhVien(int MSSV) {
+    public boolean themSinhVien(int MSSV) {//thêm sinh viên vào danh sách lớp
         if (isFull() || tonTai(MSSV)) return false;
         int idx=hash(MSSV);
         danhSachSinhVien[idx] = new Node(MSSV, danhSachSinhVien[idx]);
@@ -79,7 +84,7 @@ public class LopHoc {
         return true;
     }
 
-    public boolean xoaSinhVien(int MSSV) { //chưa có key mới chay đc còn có key ko chayjk đc
+    public boolean xoaSinhVien(int MSSV) {
         int idx = hash(MSSV);
         Node prev = null;
         for (Node p = danhSachSinhVien[idx]; p!= null; prev=p, p=p.next) {

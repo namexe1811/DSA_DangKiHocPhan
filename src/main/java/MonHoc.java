@@ -1,5 +1,9 @@
 /*
  */
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MonHoc {
     private int soTinChi;
     private String tenMonHoc;
@@ -9,11 +13,17 @@ public class MonHoc {
     private LopHoc[] cacLopHoc; 
     private String[] monHocTruoc; 
     private String[] monTienQuyet; 
-
     private int soLuongLopHienTai = 0;
 
-    public MonHoc(int soTinChi, String tenMonHoc, String maHocPhan, 
-                  String[] nganh, String[] monHocTruoc, String[] monTienQuyet, int soLuongLopToiDa, LopHoc[] cacLopHoc) {
+    @JsonCreator
+    public MonHoc(@JsonProperty("soTinChi") int soTinChi,
+                  @JsonProperty("tenMonHoc") String tenMonHoc,
+                  @JsonProperty("maHocPhan") String maHocPhan,
+                  @JsonProperty("nganh") String[] nganh,
+                  @JsonProperty("monHocTruoc") String[] monHocTruoc,
+                  @JsonProperty("monTienQuyet") String[] monTienQuyet,
+                  @JsonProperty("soLuongLopToiDa") int soLuongLopToiDa,
+                  @JsonProperty("cacLopHoc") LopHoc[] cacLopHoc)  {
         this.soTinChi = soTinChi;
         this.tenMonHoc = tenMonHoc;
         this.maHocPhan = maHocPhan;
