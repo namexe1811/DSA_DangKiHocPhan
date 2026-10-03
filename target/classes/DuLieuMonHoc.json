@@ -5,7 +5,6 @@
             "maHocPhan": "DSTT2025",
             "tenMonHoc": "Dai so tuyen tinh",
             "soTinChi": 3,
-            "nganh": ["ALL"],
             "monHocTruoc": [],
             "monTienQuyet": [],
             "cacLopHoc": [
@@ -55,7 +54,6 @@
             "maHocPhan": "CTDL2026",
             "tenMonHoc": "Cau truc du lieu va gia thuat",
             "soTinChi": 4,
-            "nganh": ["Cong nghe thong tin", "An toan thong tin", "Khoa hoc may tinh"],
             "monHocTruoc": ["LTCB1001"],
             "monTienQuyet": [],
             "cacLopHoc": [
@@ -85,7 +83,6 @@
             "maHocPhan": "LTCB1001",
             "tenMonHoc": "Lap trinh co ban",
             "soTinChi": 3,
-            "nganh": ["ALL"],
             "monHocTruoc": [],
             "monTienQuyet": [],
             "cacLopHoc": [

@@ -4,7 +4,6 @@
         {
             "ten": "Tran Hao Nam",
             "mssv": 25110001,
-            "nganh": "Cong nghe thong tin",
             "soTinDangKi": 7,
             "matKhau": "12345678",
             "thoiKhoaBieu": [
@@ -30,7 +29,6 @@
         {
             "ten": "Nguyen Van Binh",
             "mssv": 25110002,
-            "nganh": "Cong nghe thong tin",
             "soTinDangKi": 6,
             "matKhau": "abcdef12",
             "thoiKhoaBieu": [
@@ -56,7 +54,6 @@
         {
             "ten": "Le Thi Cuong",
             "mssv": 25486001,
-            "nganh": "An toan thong tin",
             "soTinDangKi": 7,
             "matKhau": "pass1234",
             "thoiKhoaBieu": [
