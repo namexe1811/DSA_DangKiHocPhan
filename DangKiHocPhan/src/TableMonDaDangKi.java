@@ -1,118 +1,94 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TableMonDaDangKi {
 
     private static class Node {
         String key;
         Node next;
+        Node(String key) { this.key = key; }
+    }
 
-        Node(String key) {
-            this.key = key;
+    private Node[] danhSachMonDaDangKi;   
+    private int soLuong;          // số phần tử hiện tại
+    //khởi tạo hashtable từ 1 mảng
+    public TableMonDaDangKi(String[] cacMonDaDangKi) {
+        this.danhSachMonDaDangKi = new Node[16];
+        this.soLuong = 0;
+        for (String mon : cacMonDaDangKi) {
+            if (mon != null && !mon.isEmpty()) {
+                them(mon);//mỗi lần thêm thì soLuong tăng lên(trong hàm them())
+            }
         }
     }
 
-    private Node[] table;
-    private int tableSize;
-    private int soLuong;
-
-    public TableMonDaDangKi() {
-        this(16);
-    }
-
-    public TableMonDaDangKi(int size) {
-        this.tableSize = size;
-        this.table = new Node[tableSize];
-        this.soLuong = 0;
-    }
-
-    // Hàm băm: chuyển tên môn thành vị trí trong bảng
+    // Hàm băm
     private int hash(String key) {
         long h = 0;
         int p = 31;
-
         for (int i = 0; i < key.length(); i++) {
             h = h * p + key.charAt(i);
         }
-
-        return (int) (Math.abs(h) % tableSize);
+        return (int) (Math.abs(h) % danhSachMonDaDangKi.length);//danhSachMonDaDangKi.length là 16
     }
 
     // Thêm môn
-    public void push(String giaTri) {
-        if (coTonTai(giaTri)) {
-            return;
-        }
-
+    public void them(String giaTri) {
         int idx = hash(giaTri);
-
-        Node newNode = new Node(giaTri);
-        newNode.next = table[idx];
-        table[idx] = newNode;
-
-        soLuong++;
-    }
-
-    // Kiểm tra môn đã tồn tại chưa
-    public boolean coTonTai(String giaTri) {
-        int idx = hash(giaTri);
-
-        Node cur = table[idx];
-
+        Node cur = danhSachMonDaDangKi[idx];
         while (cur != null) {
-            if (cur.key.equals(giaTri)) {
-                return true;
-            }
-
+            if (cur.key.equals(giaTri)) return; // đã tồn tại
             cur = cur.next;
         }
-
-        return false;
+        Node newNode = new Node(giaTri);
+        newNode.next = danhSachMonDaDangKi[idx];
+        danhSachMonDaDangKi[idx] = newNode;
+        soLuong++;
     }
 
     // Xóa môn
     public boolean xoa(String giaTri) {
         int idx = hash(giaTri);
-
-        Node cur = table[idx];
-        Node prev = null;
-
+        Node cur = danhSachMonDaDangKi[idx], prev = null;
         while (cur != null) {
             if (cur.key.equals(giaTri)) {
-
-                if (prev == null) {
-                    table[idx] = cur.next;
-                } else {
-                    prev.next = cur.next;
-                }
-
+                if (prev == null) danhSachMonDaDangKi[idx] = cur.next;
+                else prev.next = cur.next;
                 soLuong--;
                 return true;
             }
-
             prev = cur;
             cur = cur.next;
         }
+        return false;
+    }
 
+    // Kiểm tra tồn tại
+    public boolean tonTai(String giaTri) {
+        int idx = hash(giaTri);
+        Node cur = danhSachMonDaDangKi[idx];
+        while (cur != null) {
+            if (cur.key.equals(giaTri)) return true;
+            cur = cur.next;
+        }
         return false;
     }
 
     // Số lượng môn
-    public int size() {
-        return soLuong;
-    }
+    public int size() { return soLuong; }
 
-    // Chuyển toàn bộ bảng băm thành mảng
-    public String[] toArray() {
-        String[] ketQua = new String[soLuong];
+    // Getter trả về mảng để ghi file
+    public String[] getDanhSachMonDaDangKi() {
+        String[] kq = new String[soLuong];
         int k = 0;
-
-        for (Node dau : table) {
-            Node cur = dau;
-
+        for (Node head : danhSachMonDaDangKi) {
+            Node cur = head;
             while (cur != null) {
-                ketQua[k++] = cur.key;
+                kq[k++] = cur.key;
                 cur = cur.next;
             }
         }
-
-        return ketQua;
+        return kq;
     }
 }
+
