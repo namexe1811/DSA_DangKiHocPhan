@@ -56,7 +56,7 @@ public class LopHoc {
         }
     }
 
-    public boolean coSinhVien(int MSSV) { //sữa tên Tồn Tại
+    public boolean TonTai(int MSSV) { //sữa tên Tồn Tại
         for (Node p=danhSachSinhVien[hash(MSSV)]; p!= null; p=p.next) {
             if (p.mssv == MSSV) return true;
         }
