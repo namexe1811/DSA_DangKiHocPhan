@@ -9,9 +9,12 @@
 public class TableSinhVien {
     private int size;//số lượng sinh viên
     private SinhVien[] danhSachSinhVien;//danh sách sinh viên
-    public TableSinhVien(int size){
+    public TableSinhVien(int size, SinhVien[] danhSachSinhVien){
         this.size=size;
         this.danhSachSinhVien = new SinhVien[size];
+        for(SinhVien sv : danhSachSinhVien){
+            this.them(sv);
+        }
     }
     public int getsize(){
         return size;
@@ -21,7 +24,7 @@ public class TableSinhVien {
         return mssv % size;
     }
     //thêm 1 học sinh vào mảng băm
-    public void put(SinhVien sv) {
+    public void them(SinhVien sv) {
         int key = sv.getMSSV();//băm theo mã sinh viên
         int index = hash(key);
         int i = 0;
