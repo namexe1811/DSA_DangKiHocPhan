@@ -23,6 +23,7 @@ public class LopHoc {
         this.maHocPhan = maHocPhan;
         this.thoiGianHoc = thoiGianHoc;
         this.siSoToiDa = siSoToiDa;
+        this.soLuongDaDangKi = 0;
         this.danhSachSinhVien = new Node[SoNguyenTo(siSoToiDa)];
         if (sinhVienDaDangKi != null) {
             for (int mssv : sinhVienDaDangKi) {
