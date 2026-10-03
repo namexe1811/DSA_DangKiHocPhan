@@ -1,15 +1,21 @@
-public class SinhVien { 
+public class SinhVien {
 
     private static final int TIN_CHI_TOI_DA = 28;
+    private static final int SO_MON_TOI_DA_CHUONG_TRINH = 60;
 
     private String ten;
     private int mssv;
     private String nganh;
-    private String[][] thoiKhoaBieu; 
+    private String[][] thoiKhoaBieu;
     private TableMonDaDangKi monDaDangKi;   // lưu MÃ HỌC PHẦN của các môn đã đăng kí
     private int soTinDangKi;
-    private MangDong monDaTruot;
-    private TableMonDaDangKi monTichLuy;    // lưu MÃ HỌC PHẦN các môn đã học và pass
+
+    // ===== MẢNG TĨNH (fixed-size) lưu mã các môn đã trượt =====
+    // kich thuoc CO DINH, viet thang 1 so, khong gan voi hang so nao khac
+    private String[] monDaTruot;
+    private int soMonDaTruot;       // so luong mon dang co trong monDaTruot (<= 100)
+
+    private TableMonTichLuy monTichLuy;    // lưu MÃ HỌC PHẦN các môn đã học và pass
     private String matKhau;
 
     public SinhVien(String ten, int mssv, String nganh, String matKhau) {
@@ -19,8 +25,9 @@ public class SinhVien {
         this.matKhau = matKhau;
         this.thoiKhoaBieu = new String[14][12];
         this.monDaDangKi = new TableMonDaDangKi();
-        this.monDaTruot = new MangDong(3);
-        this.monTichLuy = new TableMonDaDangKi();
+        this.monDaTruot = new String[100]; // khoi tao mang tinh, kich thuoc co dinh
+        this.soMonDaTruot = 0;
+        this.monTichLuy = new TableMonTichLuy(SO_MON_TOI_DA_CHUONG_TRINH, null);
         this.soTinDangKi = 0;
     }
 
@@ -72,6 +79,14 @@ public class SinhVien {
         return s == null || s.isEmpty();
     }
 
+    // tim vi tri 1 ma mon trong mang tinh monDaTruot - O(n), tra ve -1 neu khong co
+    private int timViTriMonDaTruot(String maMonHoc) {
+        for (int i = 0; i < soMonDaTruot; i++) {
+            if (monDaTruot[i].equals(maMonHoc)) return i;
+        }
+        return -1;
+    }
+
     // lớp mới có trùng giờ không: chỉ cần thấy 1 ô trong thời khoá biểu đã có lớp là trùng
     // quy ước: thu = số hàng (đợt 2 bắt đầu từ 7), tiết 1..12 -> cột 0..11
     private boolean trungLichHoc(LopHoc lop) {
@@ -121,7 +136,7 @@ public class SinhVien {
         String[] hocTruoc = mon.getMonHocTruoc();
         if (hocTruoc != null) {
             for (String ma : hocTruoc) {
-                if (!monTichLuy.coTonTai(ma) && !monDaTruot.coTonTai(ma)) {
+                if (!monTichLuy.coTonTai(ma) && timViTriMonDaTruot(ma) == -1) {
                     return "Chua hoc mon hoc truoc: " + ma;
                 }
             }
@@ -141,7 +156,8 @@ public class SinhVien {
         }
         return null;
     }
-    // này là để đăng kí lớp , trả về true nếu thành công, false nếu thất bại (có in ra lý do)
+
+    // này là để đăng kí lớp, trả về true nếu thành công, false nếu thất bại (có in ra lý do)
     private boolean thucHienDangKi(MonHoc mon, LopHoc lop) {
         if (!lop.themSinhVien(mssv)) return false;
         monDaDangKi.push(mon.getMaHocPhan());
@@ -150,7 +166,7 @@ public class SinhVien {
         return true;
     }
 
-    // này là để hủy lớp , trả về true nếu thành công, false nếu thất bại (có in ra lý do)
+    // này là để hủy lớp, trả về true nếu thành công, false nếu thất bại (có in ra lý do)
     private void thucHienHuy(MonHoc mon, LopHoc lop) {
         lop.xoaSinhVien(mssv);
         monDaDangKi.xoa(mon.getMaHocPhan());
@@ -158,7 +174,7 @@ public class SinhVien {
         xoaLichCuaLop(lop);
     }
 
-    // này để đăng kí lớp, huỷ lớp, đổi lớp 
+    // này để đăng kí lớp, huỷ lớp, đổi lớp
     public boolean dangKiLop(String maHocPhan, String maLopHoc, TableMonHoc tableMonHoc) {
         MonHoc mon = tableMonHoc.get(maHocPhan);
         if (mon == null) {
@@ -198,7 +214,8 @@ public class SinhVien {
         System.out.println("Da huy lop: " + maLopHoc);
         return true;
     }
-    //này để đổi lớp , đổi không được thì để im lớp cũ 
+
+    // này để đổi lớp, đổi không được thì để im lớp cũ
     public boolean doiLop(String maHocPhan, String maLopHocCu, String maLopHocMoi, TableMonHoc tableMonHoc) {
         MonHoc mon = tableMonHoc.get(maHocPhan);
         if (mon == null) {
@@ -249,29 +266,42 @@ public class SinhVien {
         }
     }
 
-    // public void xepLichHoc(int dot, int thu, int tiet, String maLopHoc) {
-    //     int hang = (dot - 1) * 7 + thu;
-    //     thoiKhoaBieu[hang][tiet] = maLopHoc;
-    // }
 
-    // một số thao tác với môn đã trượt và môn tích luỹ (đã học và pass)
     public boolean themMonDaTruot(String maMonHoc) {
-        if (monDaTruot.coTonTai(maMonHoc)) return false;
-        monDaTruot.them(maMonHoc);
+        if (timViTriMonDaTruot(maMonHoc) != -1) return false; 
+        if (soMonDaTruot == monDaTruot.length) {
+            throw new RuntimeException("Mang monDaTruot da day (toi da " + monDaTruot.length
+                    + " mon)! Khong the them " + maMonHoc);
+        }
+        monDaTruot[soMonDaTruot] = maMonHoc;
+        soMonDaTruot++;
         return true;
     }
 
     public boolean xoaMonDaTruot(String maMonHoc) {
-        return monDaTruot.xoa(maMonHoc);
+        int idx = timViTriMonDaTruot(maMonHoc);
+        if (idx == -1) return false;
+        for (int i = idx; i < soMonDaTruot - 1; i++) {
+            monDaTruot[i] = monDaTruot[i + 1];
+        }
+        monDaTruot[soMonDaTruot - 1] = null;
+        soMonDaTruot--;
+        return true;
     }
 
     public boolean daTruotMon(String maMonHoc) {
-        return monDaTruot.coTonTai(maMonHoc);
+        return timViTriMonDaTruot(maMonHoc) != -1;
     }
 
     public String[] danhSachMonDaTruot() {
-        return monDaTruot.toArray();
+        String[] ketQua = new String[soMonDaTruot];
+        for (int i = 0; i < soMonDaTruot; i++) {
+            ketQua[i] = monDaTruot[i];
+        }
+        return ketQua;
     }
+
+    // ===== Thao tác với môn tích luỹ (đã học và pass) =====
 
     public void themMonTichLuy(String maMonHoc) {
         monTichLuy.push(maMonHoc);
@@ -284,6 +314,6 @@ public class SinhVien {
     @Override
     public String toString() {
         return String.format("SinhVien{ten='%s', mssv=%d, nganh='%s', soTinDangKi=%d, soMonDaTruot=%d}",
-                ten, mssv, nganh, soTinDangKi, monDaTruot.size());
+                ten, mssv, nganh, soTinDangKi, soMonDaTruot);
     }
 }
