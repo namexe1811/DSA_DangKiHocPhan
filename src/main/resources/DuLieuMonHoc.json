@@ -1,0 +1,73 @@
+{
+    "soMonHoc":1,
+    "danhSachMonHoc":[
+        {
+            "maHocPhan":"DSTT2025",
+            "tenMonHoc":"Dai so tuyen tinh",
+            "soTinChi":3,
+            "nganh":["ALL"],
+            "monHocTruoc":[],
+            "monTienQuyet":[],
+            "cacLopHoc":[
+                {
+                    "maLopHoc":"DSTT2025001",
+                    "tenGiaoVien":"Nguyen Cong Phuong",
+                    "soLuongDaDangKi":0,
+                    "thoiGianHoc":[
+                        {
+                            "thu":0,
+                            "tietDau":1,
+                            "tietCuoi":5
+                        },
+                        {
+                            "thu":2,
+                            "tietDau":7,
+                            "tietCuoi":11
+                        }
+                    ],
+                    "maHocPhan":"DSTT2025",
+                    "danhSachSinhVien":[]
+                },
+                {
+                    "maLopHoc":"DSTT2025002",
+                    "tenGiaoVien":"Bui Tien Dung",
+                    "soLuongDaDangKi":0,
+                    "thoiGianHoc":[
+                        {
+                            "thu":1,
+                            "tietDau":1,
+                            "tietCuoi":5
+                        },
+                        {
+                            "thu":3,
+                            "tietDau":7,
+                            "tietCuoi":11
+                        }
+                    ],
+                    "maHocPhan":"DSTT2025",
+                    "danhSachSinhVien":[]
+                },
+                {
+                    "maLopHoc":"DSTT2025001",
+                    "tenGiaoVien":"Nishida",
+                    "soLuongDaDangKi":0,
+                    "thoiGianHoc":[
+                        {
+                            "thu":11,
+                            "tietDau":1,
+                            "tietCuoi":5
+                        },
+                        {
+                            "thu":12,
+                            "tietDau":7,
+                            "tietCuoi":11
+                        }
+                    ],
+                    "maHocPhan":"DSTT2025",
+                    "danhSachSinhVien":[]
+                }
+
+            ]
+        }
+    ]
+}
