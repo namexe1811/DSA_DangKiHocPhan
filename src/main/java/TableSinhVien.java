@@ -1,4 +1,3 @@
-package main.java;
 //Nam Trần đã ở đây
 /*Mô tả ngắn:
 -Đây là mảng băm học sinh dựa trên mã số sinh viên

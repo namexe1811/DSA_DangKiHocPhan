@@ -1,4 +1,3 @@
-package main.java;
 public class MangDong {
 
     private String[] data;

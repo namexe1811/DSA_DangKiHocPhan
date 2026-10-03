@@ -1,4 +1,3 @@
-package main.java;
 /* Mô tả: Để làm file đọc*/
 public class MonHocData {
     private int soTinChi;

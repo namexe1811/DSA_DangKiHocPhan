@@ -1,4 +1,3 @@
-package main.java;
 /*Mô tả ngắn:
 -Đây là mảng băm môn học dựa trên mã học phần
 -Khởi tạo bằng hàm TableMonHoc(int size) với size là số môn học cho trước

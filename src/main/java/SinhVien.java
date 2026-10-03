@@ -1,5 +1,3 @@
-package main.java;
-
 public class SinhVien { 
 
     private static final int TIN_CHI_TOI_DA = 28;

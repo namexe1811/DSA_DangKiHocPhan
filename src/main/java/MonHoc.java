@@ -1,4 +1,3 @@
-package main.java;
 /*
  * Mô tả ngắn:
  * - Class đại diện cho một môn học trong hệ thống.

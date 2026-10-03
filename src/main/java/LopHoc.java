@@ -1,4 +1,3 @@
-
 public class LopHoc {
     private static class Node {
         int mssv;

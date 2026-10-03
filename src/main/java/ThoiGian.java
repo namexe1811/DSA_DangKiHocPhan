@@ -1,4 +1,3 @@
-package main.java;
 /*Mô tả ngắn:
 -Struct ThoiGian: 1 buổi học của lớp gồm thứ, tiết đầu, tiết cuối
 -Quy ước đợt 1: thứ 2 là 0, rồi tăng dần lên
