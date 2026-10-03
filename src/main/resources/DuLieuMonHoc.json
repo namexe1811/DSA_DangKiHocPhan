@@ -12,6 +12,7 @@
                 {
                     "maLopHoc": "DSTT2025001",
                     "tenGiaoVien": "Nguyen Cong Phuong",
+                    "siSoToiDa": 100,
                     "soLuongDaDangKi": 2,
                     "thoiGianHoc": [
                         {
@@ -31,6 +32,7 @@
                 {
                     "maLopHoc": "DSTT2025002",
                     "tenGiaoVien": "Bui Tien Dung",
+                    "siSoToiDa": 100,
                     "soLuongDaDangKi": 1,
                     "thoiGianHoc": [
                         {
@@ -60,6 +62,7 @@
                 {
                     "maLopHoc": "CTDL2026001",
                     "tenGiaoVien": "Tran Van A",
+                    "siSoToiDa": 45,
                     "soLuongDaDangKi": 2,
                     "thoiGianHoc": [
                         {
@@ -89,6 +92,7 @@
                 {
                     "maLopHoc": "LTCB1001001",
                     "tenGiaoVien": "Le Thi B",
+                    "siSoToiDa": 45,
                     "soLuongDaDangKi": 1,
                     "thoiGianHoc": [
                         {
