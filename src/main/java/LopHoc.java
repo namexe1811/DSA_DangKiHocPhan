@@ -47,7 +47,7 @@ public class LopHoc {
         return soLuongDaDangKi>=siSoToiDa;
     }
 
-    //key
+    //hashtable
     private int hash(int mssv) {
         return (int) (Math.abs((long) mssv) % danhSachSinhVien.length);
     }
