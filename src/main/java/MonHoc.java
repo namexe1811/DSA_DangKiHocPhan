@@ -12,8 +12,9 @@ public class MonHoc {
     private String[] nganh; 
     private LopHoc[] cacLopHoc; 
     private String[] monHocTruoc; 
-    private String[] monTienQuyet; 
-    private int soLuongLopHienTai = 0;
+    private String[] monTienQuyet;
+    /// 
+    private int soLuongLopHienTai;
 
     @JsonCreator
     public MonHoc(@JsonProperty("soTinChi") int soTinChi,
@@ -27,7 +28,7 @@ public class MonHoc {
         this.soTinChi = soTinChi;
         this.tenMonHoc = tenMonHoc;
         this.maHocPhan = maHocPhan;
-
+        this.soLuongLopHienTai=0;
         // Khởi tạo Bảng băm với size x2 
         int sizeNganh = (nganh != null) ? nganh.length : 0;
         this.nganh = new String[SoNguyenTo(sizeNganh > 0 ? sizeNganh * 2 : 7)];

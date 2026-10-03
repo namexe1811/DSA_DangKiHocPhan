@@ -6,17 +6,23 @@
 !!! ĐÂY LÀ MẢNG ĐỂ LƯU DỮ LIỆU MÔN HỌC TRONG QUÁ TRÌNH CHẠY,NÊN KO CÓ HÀM XOÁ PHẦN TỬ,KÍCH THƯỚC CŨNG SẼ CỐ ĐỊNH KHI CHẠY!!!
 */
 
-public class TableMonHoc {
-    private int size;//số lượng môn học
-    private MonHoc[] danhSachMonHoc;
-    public TableMonHoc(int size , MonHoc[] danhSachMonHoc){
-        this.size=size;
-        this.danhSachMonHoc = new MonHoc[size];
-        for(MonHoc mh : danhSachMonHoc){
-            this.them(mh);
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+    public class TableMonHoc {
+        private int size;//số lượng môn học
+        private MonHoc[] danhSachMonHoc;
+    @JsonCreator
+        public TableMonHoc(@JsonProperty("size") int size,
+                        @JsonProperty("danhSachMonHoc") MonHoc[] danhSachMonHoc) {
+            this.size = size;
+            this.danhSachMonHoc = new MonHoc[size];
+            if (danhSachMonHoc != null) {
+                for (MonHoc mh : danhSachMonHoc) {
+                    this.them(mh); 
+                }
+            }
         }
-        
-    }
     public int getsize(){
         return size;
     }

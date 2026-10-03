@@ -7,14 +7,21 @@
 !!! ĐÂY LÀ MẢNG ĐỂ LƯU DỮ LIỆU MÔN HỌC VÀ SINH VIÊN TRONG QUÁ TRÌNH CHẠY,NÊN KO CÓ HÀM XOÁ PHẦN TỬ,KÍCH THƯỚC CŨNG SẼ CỐ ĐỊNH KHI CHẠY!!!
 */
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TableSinhVien {
     private int size;//số lượng sinh viên
     private SinhVien[] danhSachSinhVien;//danh sách sinh viên
-    public TableSinhVien(int size, SinhVien[] danhSachSinhVien){
-        this.size=size;
+    @JsonCreator
+    public TableSinhVien(@JsonProperty("size") int size,
+                         @JsonProperty("danhSachSinhVien") SinhVien[] danhSachSinhVien) {
+        this.size = size;
         this.danhSachSinhVien = new SinhVien[size];
-        for(SinhVien sv : danhSachSinhVien){
-            this.them(sv);
+        if (danhSachSinhVien != null) {
+            for (SinhVien sv : danhSachSinhVien) {
+                this.them(sv);
+            }
         }
     }
     public int getsize(){
@@ -31,7 +38,7 @@ public class TableSinhVien {
         int i = 0;
         while (danhSachSinhVien[(index + i) % size] != null) {
             // Nếu trùng MSSV thì cập nhật
-            if (danhSachSinhVien[(index + i) % size].getMSSV().equals(key)) {
+            if (danhSachSinhVien[(index + i) % size].getMSSV()==key) {
                 danhSachSinhVien[(index + i) % size] = sv;
                 return;
             }
@@ -47,7 +54,7 @@ public class TableSinhVien {
         int index = hash(key);
         int i = 0;
         while (danhSachSinhVien[(index + i) % size] != null) {
-            if (danhSachSinhVien[(index + i) % size].getMSSV().equals(key)) {
+            if (danhSachSinhVien[(index + i) % size].getMSSV()==key) {
                 return danhSachSinhVien[(index + i) % size];
             }
             i++;
