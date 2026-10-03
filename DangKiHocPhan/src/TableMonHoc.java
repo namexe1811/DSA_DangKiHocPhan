@@ -8,9 +8,13 @@
 public class TableMonHoc {
     private int size;//số lượng môn học
     private MonHoc[] danhSachMonHoc;
-    public TableMonHoc(int size){
+    public TableMonHoc(int size , MonHoc[] danhSachMonHoc){
         this.size=size;
-        danhSachMonHoc = new MonHoc[size];
+        this.danhSachMonHoc = new MonHoc[size];
+        for(MonHoc mh : danhSachMonHoc){
+            this.them(mh);
+        }
+        
     }
     public int getsize(){
         return size;
@@ -25,7 +29,7 @@ public class TableMonHoc {
         return (int)(Math.abs(h) % size);
     }
     //thêm môn vào mảng băm
-    public void put(MonHoc mh) {
+    public void them(MonHoc mh) {
         String key = mh.getMaHocPhan();//băm theo mã môn học
         int index = hash(key);
         int i = 0;
