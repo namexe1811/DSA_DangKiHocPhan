@@ -15,6 +15,20 @@
       <artifactId>jackson-databind</artifactId>
       <version>2.17.2</version>
     </dependency>
+
+    <!-- JavaFX Controls -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>21</version>
+    </dependency>
+
+    <!-- JavaFX FXML (nếu bạn dùng file .fxml) -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>21</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -25,7 +39,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
-          <mainClass>App</mainClass>
+          <mainClass>DemoFX</mainClass>
         </configuration>
       </plugin>
     </plugins>
