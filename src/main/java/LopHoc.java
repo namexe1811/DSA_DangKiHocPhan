@@ -17,14 +17,23 @@ public class LopHoc {
     private Node[] danhSachSinhVien;//bảng băm chứa MSSV
 
     public LopHoc(String maLopHoc, String tenGiaoVien, String maHocPhan,
-                  ThoiGian[] thoiGianHoc, int siSoToiDa) {
+                  ThoiGian[] thoiGianHoc, int siSoToiDa, int[] sinhVienDaDangKi) {
         this.maLopHoc = maLopHoc;
         this.tenGiaoVien = tenGiaoVien;
         this.maHocPhan = maHocPhan;
         this.thoiGianHoc = thoiGianHoc;
         this.siSoToiDa = siSoToiDa;
         this.soLuongDaDangKi = 0; //delete bằng số lượng sinh viên đã nhập vào
-        this.danhSachSinhVien = new Node[SoNguyenTo(siSoToiDa)];//GHI THÊM HÀM ĐỌC SINH VIÊN TỪ MẢNG VÀO HASHTABLE
+        this.danhSachSinhVien = new Node[SoNguyenTo(siSoToiDa)];
+        if (sinhVienDaDangKi != null) {
+            for (int mssv : sinhVienDaDangKi) {
+                themSinhVien(mssv); // mỗi lần thêm thì soLuongDaDangKi tăng lên
+            }
+        }
+    }
+     public LopHoc(String maLopHoc, String tenGiaoVien, String maHocPhan,
+                  ThoiGian[] thoiGianHoc, int siSoToiDa) {
+        this(maLopHoc, tenGiaoVien, maHocPhan, thoiGianHoc, siSoToiDa, null);
     }
 
     public String getmaLopHoc() { return maLopHoc; }
