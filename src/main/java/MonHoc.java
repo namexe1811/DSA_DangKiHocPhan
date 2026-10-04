@@ -144,5 +144,18 @@ public class MonHoc {
     public int getSoTinChi() {return this.soTinChi;}
     public String[] getMonTienQuyet() {return this.monTienQuyet;}
     public String[] getMonHocTruoc() {return this.monHocTruoc;}
-    public LopHoc[] getCacLopHoc() {return this.cacLopHoc;}
+    public LopHoc[] getCacLopHoc() {
+    int dem = 0;
+    for (int i = 0; i < cacLopHoc.length; i++) {
+        if (cacLopHoc[i] != null) dem++;
+    }
+    LopHoc[] kq = new LopHoc[dem];
+    int k = 0;
+    for ( int i = 0; i < cacLopHoc.length; i++) {
+        if ( cacLopHoc[i]  != null) {
+            kq[k++] = cacLopHoc[i];
+        }
+    }
+    return kq;
+    }
 }
