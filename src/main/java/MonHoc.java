@@ -27,7 +27,7 @@ public class MonHoc {
         this.monHocTruoc = monHocTruoc;
         this.monTienQuyet = monTienQuyet;
         
-        // Khởi tạo Bảng băm với size x2 
+        // Khởi tạo Bảng băm
         if (cacLopHoc != null) { // Kiểm tra xem mảng cacLopHoc có bị rỗng không
             this.cacLopHoc = toHashTable(cacLopHoc);
         } else {
