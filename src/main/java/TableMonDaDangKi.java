@@ -74,9 +74,9 @@ public class TableMonDaDangKi {
 
     // Số lượng môn
     public int size() { return soLuong; }
-
+//===============================================GETTER========================================================
     // Getter trả về mảng để ghi file
-    public String[] getDanhSachMonDaDangKi() {
+    public String[] getdanhSachMonDaDangKi() {
         String[] kq = new String[soLuong];
         int k = 0;
         for (Node head : danhSachMonDaDangKi) {

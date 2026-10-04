@@ -1,6 +1,7 @@
 //LoiTran
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LopHoc {
@@ -20,14 +21,14 @@ public class LopHoc {
     private int siSoToiDa;
     private int soLuongDaDangKi;
     private Node[] danhSachSinhVien;//bảng băm chứa MSSV
-
+//===============================================CONSTRUCTOR========================================================
     @JsonCreator
     public LopHoc(@JsonProperty("maLopHoc") String maLopHoc,
                 @JsonProperty("tenGiaoVien") String tenGiaoVien,
+                @JsonProperty("siSoToiDa") int siSoToiDa,
                 @JsonProperty("maHocPhan") String maHocPhan,
                 @JsonProperty("thoiGianHoc") ThoiGian[] thoiGianHoc,
-                @JsonProperty("siSoToiDa") int siSoToiDa,
-                @JsonProperty("sinhVienDaDangKi") int[] sinhVienDaDangKi) {
+                @JsonProperty("danhSachSinhVien") int[] danhSachSinhVien) {
         this.maLopHoc = maLopHoc;
         this.tenGiaoVien = tenGiaoVien;
         this.maHocPhan = maHocPhan;
@@ -35,21 +36,15 @@ public class LopHoc {
         this.siSoToiDa = siSoToiDa;
         this.soLuongDaDangKi = 0;
         this.danhSachSinhVien = new Node[SoNguyenTo(siSoToiDa)];
-        if (sinhVienDaDangKi != null) {
-            for (int mssv : sinhVienDaDangKi) {
+        if (danhSachSinhVien != null) {
+            for (int mssv : danhSachSinhVien) {
                 themSinhVien(mssv);
             }
         }
     }
 
-
-    public String getmaLopHoc() { return maLopHoc; }
-    public String gettenGiaoVien() { return tenGiaoVien; }
-    public String getmaHocPhan() { return maHocPhan; }
-    public ThoiGian[] getthoiGianHoc() { return thoiGianHoc; }
-    public int getsiSoToiDa() { return siSoToiDa; }
-    public int getsoLuongDangKi() { return soLuongDaDangKi; }
-
+//===============================================HÀM==================================================================
+    @JsonIgnore
     public boolean isFull() {
         return soLuongDaDangKi>=siSoToiDa;
     }
@@ -99,6 +94,25 @@ public class LopHoc {
         }
         return false;
     }
+//===============================================GETTER========================================================
+    public String getmaLopHoc() {
+        return maLopHoc;
+    }
+    public String gettenGiaoVien() {
+        return tenGiaoVien;
+    }
+    public String getmaHocPhan() {
+        return maHocPhan;
+    }
+    public ThoiGian[] getthoiGianHoc() {
+        return thoiGianHoc;
+    }
+    public int getsiSoToiDa() {
+        return siSoToiDa;
+    }
+    public int getsoLuongDaDangKi() {
+        return soLuongDaDangKi;
+    }
     //danh sách MSSV của lớp
     public int[] getdanhSachSinhVien() {
         int[] kq = new int[soLuongDaDangKi];
@@ -107,13 +121,5 @@ public class LopHoc {
             for (Node p=head; p!=null; p=p.next) kq[k++] = p.mssv;
         }
         return kq;
-    }
-
-    //lớp này có trùng giờ với lớp khác ko (dùng khi đăng kí lớp)
-    public boolean trungThoiGian(LopHoc o) {
-        for (ThoiGian a : thoiGianHoc)
-            for (ThoiGian b : o.thoiGianHoc)
-                if (a.trung(b)) return true;
-        return false;
     }
 }

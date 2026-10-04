@@ -13,6 +13,8 @@ public class MonHoc {
     private String[] monHocTruoc; 
     private String[] monTienQuyet;
     /// 
+    private int size;//số lượng lớp học
+//===============================================CONSTRUCTOR========================================================
     @JsonCreator
     public MonHoc(@JsonProperty("soTinChi") int soTinChi,
                   @JsonProperty("tenMonHoc") String tenMonHoc,
@@ -23,17 +25,18 @@ public class MonHoc {
         this.soTinChi = soTinChi;
         this.tenMonHoc = tenMonHoc;
         this.maHocPhan = maHocPhan;
-        
         this.monHocTruoc = monHocTruoc;
         this.monTienQuyet = monTienQuyet;
+        this.size = cacLopHoc != null ? cacLopHoc.length : 0;
         
         // Khởi tạo Bảng băm
         if (cacLopHoc != null) { // Kiểm tra xem mảng cacLopHoc có bị rỗng không
             this.cacLopHoc = toHashTable(cacLopHoc);
         } else {
-            this.cacLopHoc = new LopHoc[7];
+            this.cacLopHoc = new LopHoc[0]; // Nếu rỗng, khởi tạo mảng rỗng
         }
     }
+//===============================================HÀM==================================================================
 /*
     Tại sao chọn số nguyên tố ? 
     - Tính phân tán: Nếu kích thước mảng là một hợp số (ví dụ: 10, 100), các khóa có quy luật toán học (chẳng hạn như các số chẵn, 
@@ -42,6 +45,7 @@ public class MonHoc {
                     nó phá vỡ mọi quy luật nhịp điệu của dữ liệu đầu vào, ép các chỉ số (index) phải rải đều ngẫu nhiên ra toàn bộ các khe trống.
     - 
 */
+    //Hàm tìm số nguyên tố lớn hơn hoặc bằng n
     private static int SoNguyenTo(int n) {
         if (n < 2) n = 2;
         while (true) {
@@ -53,7 +57,7 @@ public class MonHoc {
             n++;
         }
     }
-
+    //Hàm băm
     public int hash(String key) { // Chuyển đổi chuỗi -> valid index
         long h = 0;
         int p = 31;
@@ -62,9 +66,9 @@ public class MonHoc {
         }
         return (int)(Math.abs(h) % this.cacLopHoc.length);
     }
-
+    // Chuyển đổi mảng cacLopHoc thành bảng băm
     public LopHoc[] toHashTable(LopHoc[] array) {
-        int cap = SoNguyenTo(array.length > 0 ? array.length : 0);
+        int cap = SoNguyenTo((int) Math.ceil(array.length * 1.43));
         LopHoc[] table = new LopHoc[cap];
         for (LopHoc lop : array) {
             if (lop != null) { // Kiểm tra phần tử bên trong có bị rỗng không
@@ -103,13 +107,13 @@ public class MonHoc {
         this.cacLopHoc[idx] = lopHocMoi;
         return true;
     }
-    
+    // Tìm lớp học trong mảng
     public LopHoc get(String key) {
         if (key == null || this.cacLopHoc == null) return null;
         int idx = hash(key);
         int startIdx = idx;
         
-        while (this.cacLopHoc[idx] != null) { // 
+        while (this.cacLopHoc[idx] != null) { 
             if (this.cacLopHoc[idx].getmaLopHoc().equals(key)) {
                 return this.cacLopHoc[idx];
             }
@@ -119,43 +123,25 @@ public class MonHoc {
         return null;
     }
 
+    // Kiểm tra xem lớp học có tồn tại trong mảng hay không
     public boolean tonTai(String key) { //Kiểm tra môn có tổn tại mã này hay không 
         return get(key) != null;
     }
 
-    public boolean xoa(String key) {
-        if (key == null || this.cacLopHoc == null) return false;
-        int idx = hash(key);
-        int startIdx = idx;
-        
-        while (this.cacLopHoc[idx] != null) { // lo co truong hop no bi null o giua thi sao
-            if (this.cacLopHoc[idx].getmaLopHoc().equals(key)) {
-                this.cacLopHoc[idx] = null;
-                return true;
+//===============================================GETTER========================================================
+    public int getsoTinChi() {return this.soTinChi;}
+    public String gettenMonHoc() {return this.tenMonHoc;}
+    public String getmaHocPhan() {return this.maHocPhan;}
+    public String[] getmonHocTruoc() {return this.monHocTruoc;}
+    public String[] getmonTienQuyet() {return this.monTienQuyet;}
+    public LopHoc[] getcacLopHoc() {
+        LopHoc[] result = new LopHoc[size];
+        int idx = 0;
+        for (LopHoc lop : this.cacLopHoc) {
+            if (lop != null) {
+                result[idx++] = lop;
             }
-            idx = (idx + 1) % this.cacLopHoc.length;
-            if (idx == startIdx) break;
         }
-        return false;
-    }
-
-    public String getTenMonHoc() {return this.tenMonHoc;}
-    public String getMaHocPhan() {return this.maHocPhan;}
-    public int getSoTinChi() {return this.soTinChi;}
-    public String[] getMonTienQuyet() {return this.monTienQuyet;}
-    public String[] getMonHocTruoc() {return this.monHocTruoc;}
-    public LopHoc[] getCacLopHoc() {
-    int size = 0;
-    for (int i = 0; i < cacLopHoc.length; i++) {
-        if (cacLopHoc[i] != null) size++;
-    }
-    LopHoc[] kq = new LopHoc[size];
-    int k = 0;
-    for ( int i = 0; i < cacLopHoc.length; i++) {
-        if ( cacLopHoc[i]  != null) {
-            kq[k++] = cacLopHoc[i];
-        }
-    }
-    return kq;
+        return result;
     }
 }

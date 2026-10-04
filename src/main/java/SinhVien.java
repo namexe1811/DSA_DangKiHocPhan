@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SinhVien {
@@ -12,7 +13,8 @@ public class SinhVien {
     private String[] monDaTruot;
     private TableMonTichLuy monTichLuy;    // lưu MÃ HỌC PHẦN các môn đã học và pass
     private String matKhau;
-
+//===============================================CONSTRUCTOR========================================================
+    @JsonCreator 
     public SinhVien(@JsonProperty("ten") String ten,
                 @JsonProperty("mssv") int mssv,
                 @JsonProperty("thoiKhoaBieu") String[][] thoiKhoaBieu,
@@ -30,38 +32,10 @@ public class SinhVien {
         this.monTichLuy = new TableMonTichLuy(monTichLuy);
         this.soTinDangKi = soTinDangKi;
     }
+//===============================================HÀM==================================================================
 
-    public String getTen() {
-        return ten;
-    }
 
-    public void setTen(String ten) {
-        this.ten = ten;
-    }
 
-    public int getMSSV() {
-        return mssv;
-    }
-
-    public void setMSSV(int mssv) {
-        this.mssv = mssv;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
-
-    // public String getNganh() {
-    //     return nganh;
-    // }
-
-    public int getSoTinDangKi() {
-        return soTinDangKi;
-    }
 
     // ================== HÀM PHỤ (private) ==================
 
@@ -92,8 +66,8 @@ public class SinhVien {
     private boolean trungLichHoc(LopHoc lop) {
         ThoiGian[] dsTg = lop.getthoiGianHoc();
         for (ThoiGian tg : dsTg) {
-            for (int t = tg.getTietDau(); t <= tg.getTietCuoi(); t++) {
-                if (!trong(thoiKhoaBieu[tg.getThu()][t])) return true;
+            for (int t = tg.gettietDau(); t <= tg.gettietCuoi(); t++) {
+                if (!trong(thoiKhoaBieu[tg.getthu()][t])) return true;
             }
         }
         return false;
@@ -102,8 +76,8 @@ public class SinhVien {
     private void xepLichCuaLop(LopHoc lop) {
         ThoiGian[] dsTg = lop.getthoiGianHoc();
         for (ThoiGian tg : dsTg) {
-            for (int t = tg.getTietDau(); t <= tg.getTietCuoi(); t++) {
-                thoiKhoaBieu[tg.getThu()][t] = lop.getmaLopHoc();
+            for (int t = tg.gettietDau(); t <= tg.gettietCuoi(); t++) {
+                thoiKhoaBieu[tg.getthu()][t] = lop.getmaLopHoc();
             }
         }
     }
@@ -111,8 +85,8 @@ public class SinhVien {
     private void xoaLichCuaLop(LopHoc lop) {
         ThoiGian[] dsTg = lop.getthoiGianHoc();
         for (ThoiGian tg : dsTg) {
-            for (int t = tg.getTietDau(); t <= tg.getTietCuoi(); t++) {
-                thoiKhoaBieu[tg.getThu()][t] = "";
+            for (int t = tg.gettietDau(); t <= tg.gettietCuoi(); t++) {
+                thoiKhoaBieu[tg.getthu()][t] = "";
             }
         }
     }
@@ -120,11 +94,11 @@ public class SinhVien {
     // Kiểm tra mọi điều kiện đăng kí. Trả về null nếu hợp lệ, ngược lại trả về lý do.
     private String kiemTraDangKi(MonHoc mon, LopHoc lop) {
         // 1. đã đăng kí môn này chưa
-        if (monDaDangKi.tonTai(mon.getMaHocPhan())) {
-            return "Da dang ky mon " + mon.getMaHocPhan() + " roi.";
+        if (monDaDangKi.tonTai(mon.getmaHocPhan())) {
+            return "Da dang ky mon " + mon.getmaHocPhan() + " roi.";
         }
         // 2. môn tiên quyết: phải học và pass (có trong monTichLuy)
-        String[] tienQuyet = mon.getMonTienQuyet();
+        String[] tienQuyet = mon.getmonTienQuyet();
         if (tienQuyet != null) {
             for (String ma : tienQuyet) {
                 if (!monTichLuy.tonTai(ma)) {
@@ -133,7 +107,7 @@ public class SinhVien {
             }
         }
         // 3. môn học trước: chỉ cần đã học (tích luỹ hoặc đã trượt)
-        String[] hocTruoc = mon.getMonHocTruoc();
+        String[] hocTruoc = mon.getmonHocTruoc();
         if (hocTruoc != null) {
             for (String ma : hocTruoc) {
                 if (!monTichLuy.tonTai(ma) && !tonTaiMonDaTruot(ma)) {
@@ -142,9 +116,9 @@ public class SinhVien {
             }
         }
         // 4. giới hạn tín chỉ
-        if (soTinDangKi + mon.getSoTinChi() > TIN_CHI_TOI_DA) {
+        if (soTinDangKi + mon.getsoTinChi() > TIN_CHI_TOI_DA) {
             return "Vuot qua " + TIN_CHI_TOI_DA + " tin chi (hien co " + soTinDangKi
-                    + ", mon nay " + mon.getSoTinChi() + " tin).";
+                    + ", mon nay " + mon.getsoTinChi() + " tin).";
         }
         // 5. lớp đã đầy chưa
         if (lop.isFull()) {
@@ -160,8 +134,8 @@ public class SinhVien {
     // này là để đăng kí lớp, trả về true nếu thành công, false nếu thất bại (có in ra lý do)
     private boolean thucHienDangKi(MonHoc mon, LopHoc lop) {
         if (!lop.themSinhVien(mssv)) return false;
-        monDaDangKi.them(mon.getMaHocPhan());
-        soTinDangKi += mon.getSoTinChi();
+        monDaDangKi.them(mon.getmaHocPhan());
+        soTinDangKi += mon.getsoTinChi();
         xepLichCuaLop(lop);
         return true;
     }
@@ -169,8 +143,8 @@ public class SinhVien {
     // này là để hủy lớp, trả về true nếu thành công, false nếu thất bại (có in ra lý do)
     private void thucHienHuy(MonHoc mon, LopHoc lop) {
         lop.xoaSinhVien(mssv);
-        monDaDangKi.xoa(mon.getMaHocPhan());
-        soTinDangKi -= mon.getSoTinChi();
+        monDaDangKi.xoa(mon.getmaHocPhan());
+        soTinDangKi -= mon.getsoTinChi();
         xoaLichCuaLop(lop);
     }
 
@@ -178,7 +152,7 @@ public class SinhVien {
     public boolean dangKiLop(MonHoc mon, String maLopHoc) {
         LopHoc lop = mon.get(maLopHoc);
         if (lop == null) {
-            System.out.println("Khong tim thay lop " + maLopHoc + " trong mon " + mon.getMaHocPhan());
+            System.out.println("Khong tim thay lop " + maLopHoc + " trong mon " + mon.getmaHocPhan());
             return false;
         }
         String loi = kiemTraDangKi(mon, lop);
@@ -196,7 +170,7 @@ public class SinhVien {
 
    public boolean huyLop(MonHoc mon, String maLopHoc) {
         LopHoc lop = mon.get(maLopHoc);
-        if (lop == null || !lop.tonTai(mssv) || !monDaDangKi.tonTai(mon.getMaHocPhan())) {
+        if (lop == null || !lop.tonTai(mssv) || !monDaDangKi.tonTai(mon.getmaHocPhan())) {
             System.out.println("Sinh vien chua dang ky lop nay.");
             return false;
         }
@@ -208,13 +182,13 @@ public class SinhVien {
     // này để đổi lớp, đổi không được thì để im lớp cũ
     public boolean doiLop(MonHoc mon, String maLopHocCu, String maLopHocMoi) {
         LopHoc lopCu = mon.get(maLopHocCu);
-        if (lopCu == null || !lopCu.tonTai(mssv) || !monDaDangKi.tonTai(mon.getMaHocPhan())) {
+        if (lopCu == null || !lopCu.tonTai(mssv) || !monDaDangKi.tonTai(mon.getmaHocPhan())) {
             System.out.println("Khong tim thay lop cu " + maLopHocCu + " trong danh sach da dang ky.");
             return false;
         }
         LopHoc lopMoi = mon.get(maLopHocMoi);
         if (lopMoi == null) {
-            System.out.println("Khong tim thay lop moi " + maLopHocMoi + " trong mon " + mon.getMaHocPhan());
+            System.out.println("Khong tim thay lop moi " + maLopHocMoi + " trong mon " + mon.getmaHocPhan());
             return false;
         }
         if (lopCu == lopMoi) {
@@ -253,55 +227,34 @@ public class SinhVien {
     }
 
 
-    // public boolean themMonDaTruot(String maMonHoc) {
-    //     if (timViTriMonDaTruot(maMonHoc) != -1) return false; 
-    //     if (soMonDaTruot == monDaTruot.length) {
-    //         throw new RuntimeException("Mang monDaTruot da day (toi da " + monDaTruot.length
-    //                 + " mon)! Khong the them " + maMonHoc);
-    //     }
-    //     monDaTruot[soMonDaTruot] = maMonHoc;
-    //     soMonDaTruot++;
-    //     return true;
-    // }
-
-    // public boolean xoaMonDaTruot(String maMonHoc) {
-    //     int idx = timViTriMonDaTruot(maMonHoc);
-    //     if (idx == -1) return false;
-    //     for (int i = idx; i < soMonDaTruot - 1; i++) {
-    //         monDaTruot[i] = monDaTruot[i + 1];
-    //     }
-    //     monDaTruot[soMonDaTruot - 1] = null;
-    //     soMonDaTruot--;
-    //     return true;
-    // }
-
-    // public boolean daTruotMon(String maMonHoc) {
-    //     return tonTaiMonDaTruot(maMonHoc);
-    // }
-
-    // public String[] danhSachMonDaTruot() {
-    //     String[] ketQua = new String[soMonDaTruot];
-    //     for (int i = 0; i < soMonDaTruot; i++) {
-    //         ketQua[i] = monDaTruot[i];
-    //     }
-    //     return ketQua;
-    // }
-       public String[] getMonDaTruot() {
-        return monDaTruot;
-       }
-    // ===== Thao tác với môn tích luỹ (đã học và pass) =====
-
-    // public void themMonTichLuy(String maMonHoc) {
-    //     monTichLuy.push(maMonHoc);
-    // }
-
-    // public boolean daTichLuyMon(String maMonHoc) {
-    //     return monTichLuy.tonTai(maMonHoc);
-    // }
-
     @Override
     public String toString() {
         return String.format("SinhVien{ten='%s', mssv=%d, soTinDangKi=%d, monDaTruot.length=%d}",
                 ten, mssv, soTinDangKi, monDaTruot != null ? monDaTruot.length : 0);
+    }
+//===============================================GETTER========================================================
+    public String getten() {
+        return ten;
+    }
+    public int getmssv() {
+        return mssv;
+    }
+    public String[][] getthoiKhoaBieu() {
+        return thoiKhoaBieu;
+    }
+    public String[] getmonDaDangKi() {
+        return monDaDangKi.getdanhSachMonDaDangKi();
+    }
+    public int getsoTinDangKi() {
+        return soTinDangKi;
+    }
+    public String[] getmonDaTruot() {
+        return monDaTruot;
+    }
+    public String[] getmonTichLuy() {
+        return monTichLuy.getdanhSachMonTichLuy();
+    }
+    public String getMatKhau() {
+        return matKhau;
     }
 }

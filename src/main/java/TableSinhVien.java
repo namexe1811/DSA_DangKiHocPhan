@@ -11,54 +11,76 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TableSinhVien {
+    private int cap;//sức chứa của mảng băm
     private int size;//số lượng sinh viên
     private SinhVien[] danhSachSinhVien;//danh sách sinh viên
+//===============================================CONSTRUCTOR========================================================
     @JsonCreator
-    public TableSinhVien(@JsonProperty("danhSachSinhVien") SinhVien[] danhSachSinhVien) {
-        this.size = danhSachSinhVien != null ? danhSachSinhVien.length : 0;
-        this.danhSachSinhVien = new SinhVien[size];
-        if (danhSachSinhVien != null) {
-            for (SinhVien sv : danhSachSinhVien) {
+    public TableSinhVien(@JsonProperty("danhSachSinhVien") SinhVien[] sinhVienDaDangKi) {
+        this.size = sinhVienDaDangKi != null ? sinhVienDaDangKi.length : 0;
+        this.cap = SoNguyenTo((int) Math.ceil(size * 1.43));
+        this.danhSachSinhVien = new SinhVien[SoNguyenTo(cap)];
+        if (sinhVienDaDangKi != null) {
+            for (SinhVien sv : sinhVienDaDangKi) {
                 this.them(sv);
             }
         }
     }
-    public int getsize(){
-        return size;
+//===============================================HÀM==================================================================
+    //hàm tìm số nguyên tố lớn hơn hoặc bằng n
+    private static int SoNguyenTo(int n) {
+        if (n < 2) n = 2;
+        while (true) {
+            boolean ok = true;
+            for (int i = 2; (long) i * i <= n; i++) {
+                if (n % i == 0) { ok = false; break; }
+            }
+            if (ok) return n;
+            n++;
+        }
     }
     //hàm băm
     private int hash(int mssv) {
-        return mssv % size;
+        return mssv % cap;
     }
     //thêm 1 học sinh vào mảng băm
     public void them(SinhVien sv) {
-        int key = sv.getMSSV();//băm theo mã sinh viên
+        int key = sv.getmssv();//băm theo mã sinh viên
         int index = hash(key);
         int i = 0;
-        while (danhSachSinhVien[(index + i) % size] != null) {
+        while (danhSachSinhVien[(index + i) % cap] != null) {
             // Nếu trùng MSSV thì cập nhật
-            if (danhSachSinhVien[(index + i) % size].getMSSV()==key) {
-                danhSachSinhVien[(index + i) % size] = sv;
+            if (danhSachSinhVien[(index + i) % cap].getmssv()==key) {
+                danhSachSinhVien[(index + i) % cap] = sv;
                 return;
             }
             i++;
-            if (i == size) {
-                throw new RuntimeException("Bảng đầy!");//để cho chắc thôi,ko xảy ra đâu((=,vì trong file json đã có số học sinh ,mảng có kích thước bằng đúng số học sinh
-            }
         }
-        danhSachSinhVien[(index + i) % size] = sv;
+        danhSachSinhVien[(index + i) % cap] = sv;
     }
     //tìm vị trí học sinh trong mảng
     public SinhVien get(int key) {
         int index = hash(key);
         int i = 0;
-        while (danhSachSinhVien[(index + i) % size] != null) {
-            if (danhSachSinhVien[(index + i) % size].getMSSV()==key) {
-                return danhSachSinhVien[(index + i) % size];
+        while (danhSachSinhVien[(index + i) % cap] != null) {
+            if (danhSachSinhVien[(index + i) % cap].getmssv()==key) {
+                return danhSachSinhVien[(index + i) % cap];
             }
             i++;
-            if (i == size) break;
+            if (i == cap) break;
         }
         return null;    
+    }
+//===============================================GETTER========================================================
+    public SinhVien[] getdanhSachSinhVien() {
+        SinhVien[] result = new SinhVien[size];
+        int idx = 0;
+        for (SinhVien sv : danhSachSinhVien) {
+            if (sv != null) {
+                result[idx++] = sv;
+                if (idx == size) break; // đủ số lượng sinh viên thì dừng
+            }
+        }
+        return result;
     }
 }

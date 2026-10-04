@@ -9,21 +9,34 @@
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public class TableMonHoc {
-        private int size;//số lượng môn học
-        private MonHoc[] danhSachMonHoc;
+public class TableMonHoc {
+    private int size;//số lượng môn học
+    private int cap;//sức chứa của mảng băm
+    private MonHoc[] danhSachMonHoc;
+//===============================================CONSTRUCTOR========================================================
     @JsonCreator
-        public TableMonHoc(@JsonProperty("danhSachMonHoc") MonHoc[] danhSachMonHoc) {
-            this.size = danhSachMonHoc != null ? danhSachMonHoc.length : 0;
-            this.danhSachMonHoc = new MonHoc[size];
-            if (danhSachMonHoc != null) {
-                for (MonHoc mh : danhSachMonHoc) {
-                    this.them(mh); 
-                }
+    public TableMonHoc(@JsonProperty("danhSachMonHoc") MonHoc[] danhSachMonHoc) {
+        this.size = danhSachMonHoc != null ? danhSachMonHoc.length : 0;
+        this.cap = SoNguyenTo((int) Math.ceil(size * 1.43));
+        this.danhSachMonHoc = new MonHoc[cap];
+        if (danhSachMonHoc != null) {
+            for (MonHoc mh : danhSachMonHoc) {
+                this.them(mh); 
             }
         }
-    public int getsize(){
-        return size;
+    }
+//===============================================HÀM==================================================================
+    //hàm tìm số nguyên tố lớn hơn hoặc bằng n
+    private static int SoNguyenTo(int n) {
+        if (n < 2) n = 2;
+        while (true) {
+            boolean ok = true;
+            for (int i = 2; (long) i * i <= n; i++) {
+                if (n % i == 0) { ok = false; break; }
+            }
+            if (ok) return n;
+            n++;
+        }
     }
     //hàm băm
     private int hash(String key){
@@ -32,37 +45,45 @@ import com.fasterxml.jackson.annotation.JsonProperty;
         for (int i = 0; i < key.length(); i++) {
             h = h * p + key.charAt(i);
         }
-        return (int)(Math.abs(h) % size);
+        return (int)(Math.abs(h) % cap);
     }
     //thêm môn vào mảng băm
     public void them(MonHoc mh) {
-        String key = mh.getMaHocPhan();//băm theo mã môn học
+        String key = mh.getmaHocPhan();//băm theo mã môn học
         int index = hash(key);
         int i = 0;
-        while (danhSachMonHoc[(index + i) % size] != null) {
+        while (danhSachMonHoc[(index + i) % cap] != null) {
             // Nếu trùng MSSV thì cập nhật
-            if (danhSachMonHoc[(index + i) % size].getMaHocPhan().equals(key)) {
-                danhSachMonHoc[(index + i) % size] = mh;
+            if (danhSachMonHoc[(index + i) % cap].getmaHocPhan().equals(key)) {
+                danhSachMonHoc[(index + i) % cap] = mh;
                 return;
             }
             i++;
-            if (i == size) {
-                throw new RuntimeException("Bảng đầy!");//để cho chắc thôi,ko xảy ra đâu((=,vì trong file json đã có số học sinh ,mảng có kích thước bằng đúng số học sinh
-            }
         }
-        danhSachMonHoc[(index + i) % size] = mh;
+        danhSachMonHoc[(index + i) % cap] = mh;
     }
     //tìm môn học trong mảng
     public MonHoc get(String key) {
         int index = hash(key);
         int i = 0;
-        while (danhSachMonHoc[(index + i) % size] != null) {
-            if (danhSachMonHoc[(index + i) % size].getMaHocPhan().equals(key)) {
-                return danhSachMonHoc[(index + i) % size];
+        while (danhSachMonHoc[(index + i) % cap] != null) {
+            if (danhSachMonHoc[(index + i) % cap].getmaHocPhan().equals(key)) {
+                return danhSachMonHoc[(index + i) % cap];
             }
             i++;
-            if (i == size) break;
+            if (i == cap) break;
         }
         return null;    
+    }
+//===============================================GETTER========================================================
+    public MonHoc[] getDanhSachMonHoc() {
+        MonHoc[] result = new MonHoc[size];
+        int idx = 0;
+        for (MonHoc mh : danhSachMonHoc) {
+            if (mh != null) {
+                result[idx++] = mh;
+            }
+        }
+        return result;
     }
 }
