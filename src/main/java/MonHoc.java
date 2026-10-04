@@ -27,7 +27,7 @@ public class MonHoc {
         this.monHocTruoc = monHocTruoc;
         this.monTienQuyet = monTienQuyet;
         
-        // Khởi tạo Bảng băm với size x2 
+        // Khởi tạo Bảng băm
         if (cacLopHoc != null) { // Kiểm tra xem mảng cacLopHoc có bị rỗng không
             this.cacLopHoc = toHashTable(cacLopHoc);
         } else {
@@ -109,7 +109,7 @@ public class MonHoc {
         int idx = hash(key);
         int startIdx = idx;
         
-        while (this.cacLopHoc[idx] != null) {
+        while (this.cacLopHoc[idx] != null) { // 
             if (this.cacLopHoc[idx].getmaLopHoc().equals(key)) {
                 return this.cacLopHoc[idx];
             }
@@ -128,7 +128,7 @@ public class MonHoc {
         int idx = hash(key);
         int startIdx = idx;
         
-        while (this.cacLopHoc[idx] != null) {
+        while (this.cacLopHoc[idx] != null) { // lo co truong hop no bi null o giua thi sao
             if (this.cacLopHoc[idx].getmaLopHoc().equals(key)) {
                 this.cacLopHoc[idx] = null;
                 return true;
@@ -144,5 +144,18 @@ public class MonHoc {
     public int getSoTinChi() {return this.soTinChi;}
     public String[] getMonTienQuyet() {return this.monTienQuyet;}
     public String[] getMonHocTruoc() {return this.monHocTruoc;}
-    public LopHoc[] getCacLopHoc() {return this.cacLopHoc;}
+    public LopHoc[] getCacLopHoc() {
+    int size = 0;
+    for (int i = 0; i < cacLopHoc.length; i++) {
+        if (cacLopHoc[i] != null) size++;
+    }
+    LopHoc[] kq = new LopHoc[size];
+    int k = 0;
+    for ( int i = 0; i < cacLopHoc.length; i++) {
+        if ( cacLopHoc[i]  != null) {
+            kq[k++] = cacLopHoc[i];
+        }
+    }
+    return kq;
+    }
 }

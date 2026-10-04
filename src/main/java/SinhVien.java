@@ -76,7 +76,7 @@ public class SinhVien {
     }
 
     private boolean trong(String s) {
-        return s == null || s.isEmpty();
+        return  s.isEmpty();
     }
 
     // kiem tra xem co mondatruot nay trong mondatruot hay khong .
@@ -93,7 +93,7 @@ public class SinhVien {
         ThoiGian[] dsTg = lop.getthoiGianHoc();
         for (ThoiGian tg : dsTg) {
             for (int t = tg.getTietDau(); t <= tg.getTietCuoi(); t++) {
-                if (!trong(thoiKhoaBieu[tg.getThu()][t - 1])) return true;
+                if (!trong(thoiKhoaBieu[tg.getThu()][t])) return true;
             }
         }
         return false;
@@ -103,7 +103,7 @@ public class SinhVien {
         ThoiGian[] dsTg = lop.getthoiGianHoc();
         for (ThoiGian tg : dsTg) {
             for (int t = tg.getTietDau(); t <= tg.getTietCuoi(); t++) {
-                thoiKhoaBieu[tg.getThu()][t - 1] = lop.getmaLopHoc();
+                thoiKhoaBieu[tg.getThu()][t] = lop.getmaLopHoc();
             }
         }
     }
@@ -112,7 +112,7 @@ public class SinhVien {
         ThoiGian[] dsTg = lop.getthoiGianHoc();
         for (ThoiGian tg : dsTg) {
             for (int t = tg.getTietDau(); t <= tg.getTietCuoi(); t++) {
-                thoiKhoaBieu[tg.getThu()][t - 1] = null;
+                thoiKhoaBieu[tg.getThu()][t] = "";
             }
         }
     }
@@ -302,6 +302,6 @@ public class SinhVien {
     @Override
     public String toString() {
         return String.format("SinhVien{ten='%s', mssv=%d, soTinDangKi=%d, monDaTruot.length=%d}",
-                ten, mssv, soTinDangKi, soMonDaTruot);
+                ten, mssv, soTinDangKi, monDaTruot != null ? monDaTruot.length : 0);
     }
 }

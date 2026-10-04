@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class TableMonDaDangKi {
 
@@ -13,7 +11,7 @@ public class TableMonDaDangKi {
     private int soLuong;          // số phần tử hiện tại
     //khởi tạo hashtable từ 1 mảng
     public TableMonDaDangKi(String[] cacMonDaDangKi) {
-        this.danhSachMonDaDangKi = new Node[16];
+        this.danhSachMonDaDangKi = new Node[17];//số môn đăng kí tối đa khaonrg 14-15 môn, nên mảng có kích thước là số nguyên tố lớn hơn 15 là 17
         this.soLuong = 0;
         for (String mon : cacMonDaDangKi) {
             if (mon != null && !mon.isEmpty()) {
