@@ -316,6 +316,6 @@ public class SinhVien {
     @Override
     public String toString() {
         return String.format("SinhVien{ten='%s', mssv=%d, soTinDangKi=%d, monDaTruot.length=%d}",
-                ten, mssv, soTinDangKi, soMonDaTruot);
+                ten, mssv, soTinDangKi, monDaTruot != null ? monDaTruot.length : 0);
     }
 }

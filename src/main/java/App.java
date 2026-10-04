@@ -8,12 +8,10 @@ public class App {
         ObjectMapper mapper = new ObjectMapper();
 
         // Đọc file môn học
-        TableMonHocData monHocData = mapper.readValue(new File("/DuLieuMonhoc.json"), TableMonHocData.class);
-        TableMonHoc tableMonHoc = new TableMonHoc(monHocData.getsoMonHoc(), monHocData.getdanhSachMonHoc());
+        TableMonHoc tableMonHoc = mapper.readValue(new File("/DuLieuMonhoc.json"), TableMonHoc.class);
 
         // Đọc file sinh viên
-        TableSinhVienData svData = mapper.readValue(new File("/DuLieuSinhVien.json"), TableSinhVienData.class);
-        TableSinhVien tableSinhVien = new TableSinhVien(svData.getsoSinhVien(), svData.getdanhSachSinhVien());
+        TableSinhVien tableSinhVien = mapper.readValue(new File("/DuLieuSinhVien.json"), TableSinhVien.class);
 
         // Thử truy vấn
         MonHoc mh = tableMonHoc.get("DSTT2025");
