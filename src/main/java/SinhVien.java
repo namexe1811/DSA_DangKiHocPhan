@@ -175,15 +175,10 @@ public class SinhVien {
     }
 
     // này để đăng kí lớp, huỷ lớp, đổi lớp
-    public boolean dangKiLop(String maHocPhan, String maLopHoc, TableMonHoc tableMonHoc) {
-        MonHoc mon = tableMonHoc.get(maHocPhan);
-        if (mon == null) {
-            System.out.println("Khong tim thay mon " + maHocPhan);
-            return false;
-        }
-        LopHoc lop = timLop(mon, maLopHoc);
+    public boolean dangKiLop(MonHoc mon, String maLopHoc) {
+        LopHoc lop = mon.get(maLopHoc);
         if (lop == null) {
-            System.out.println("Khong tim thay lop " + maLopHoc + " trong mon " + maHocPhan);
+            System.out.println("Khong tim thay lop " + maLopHoc + " trong mon " + mon.getMaHocPhan());
             return false;
         }
         String loi = kiemTraDangKi(mon, lop);
@@ -199,14 +194,9 @@ public class SinhVien {
         return true;
     }
 
-    public boolean huyLop(String maHocPhan, String maLopHoc, TableMonHoc tableMonHoc) {
-        MonHoc mon = tableMonHoc.get(maHocPhan);
-        if (mon == null) {
-            System.out.println("Khong tim thay mon " + maHocPhan);
-            return false;
-        }
-        LopHoc lop = timLop(mon, maLopHoc);
-        if (lop == null || !lop.tonTai(mssv) || !monDaDangKi.tonTai(maHocPhan)) {
+   public boolean huyLop(MonHoc mon, String maLopHoc) {
+        LopHoc lop = mon.get(maLopHoc);
+        if (lop == null || !lop.tonTai(mssv) || !monDaDangKi.tonTai(mon.getMaHocPhan())) {
             System.out.println("Sinh vien chua dang ky lop nay.");
             return false;
         }
@@ -216,27 +206,22 @@ public class SinhVien {
     }
 
     // này để đổi lớp, đổi không được thì để im lớp cũ
-    public boolean doiLop(String maHocPhan, String maLopHocCu, String maLopHocMoi, TableMonHoc tableMonHoc) {
-        MonHoc mon = tableMonHoc.get(maHocPhan);
-        if (mon == null) {
-            System.out.println("Khong tim thay mon " + maHocPhan);
-            return false;
-        }
-        LopHoc lopCu = timLop(mon, maLopHocCu);
-        if (lopCu == null || !lopCu.tonTai(mssv) || !monDaDangKi.tonTai(maHocPhan)) {
+    public boolean doiLop(MonHoc mon, String maLopHocCu, String maLopHocMoi) {
+        LopHoc lopCu = mon.get(maLopHocCu);
+        if (lopCu == null || !lopCu.tonTai(mssv) || !monDaDangKi.tonTai(mon.getMaHocPhan())) {
             System.out.println("Khong tim thay lop cu " + maLopHocCu + " trong danh sach da dang ky.");
             return false;
         }
-        LopHoc lopMoi = timLop(mon, maLopHocMoi);
+        LopHoc lopMoi = mon.get(maLopHocMoi);
         if (lopMoi == null) {
-            System.out.println("Khong tim thay lop moi " + maLopHocMoi + " trong mon " + maHocPhan);
+            System.out.println("Khong tim thay lop moi " + maLopHocMoi + " trong mon " + mon.getMaHocPhan());
             return false;
         }
         if (lopCu == lopMoi) {
             System.out.println("Lop moi trung voi lop cu.");
             return false;
         }
-
+ 
         thucHienHuy(mon, lopCu); // tạm rút khỏi lớp cũ để kiểm tra lớp mới
         String loi = kiemTraDangKi(mon, lopMoi);
         if (loi != null || !thucHienDangKi(mon, lopMoi)) {
@@ -247,6 +232,7 @@ public class SinhVien {
         System.out.println("Da hoan doi lop " + maLopHocCu + " -> " + maLopHocMoi);
         return true;
     }
+ 
 
     // này để in tkb
     public void xemLichHoc() {
