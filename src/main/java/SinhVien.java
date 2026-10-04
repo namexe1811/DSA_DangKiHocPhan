@@ -66,14 +66,14 @@ public class SinhVien {
     // ================== HÀM PHỤ (private) ==================
 
     // tìm lớp trong môn theo mã lớp (bỏ qua ô null của mảng)
-    private LopHoc timLop(MonHoc mon, String maLopHoc) {
-        LopHoc[] ds = mon.getCacLopHoc();
-        if (ds == null) return null;
-        for (LopHoc lop : ds) {
-            if (lop != null && lop.getmaLopHoc().equals(maLopHoc)) return lop;
-        }
-        return null;
-    }
+    // private LopHoc timLop(MonHoc mon, String maLopHoc) {
+    //     LopHoc[] ds = mon.getCacLopHoc();
+    //     if (ds == null) return null;
+    //     for (LopHoc lop : ds) {
+    //         if (lop != null && lop.getmaLopHoc().equals(maLopHoc)) return lop;
+    //     }
+    //     return null;
+    // }
 
     private boolean trong(String s) {
         return  s.isEmpty();
