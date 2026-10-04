@@ -109,7 +109,7 @@ public class MonHoc {
         int idx = hash(key);
         int startIdx = idx;
         
-        while (this.cacLopHoc[idx] != null) {
+        while (this.cacLopHoc[idx] != null) { // 
             if (this.cacLopHoc[idx].getmaLopHoc().equals(key)) {
                 return this.cacLopHoc[idx];
             }
@@ -128,7 +128,7 @@ public class MonHoc {
         int idx = hash(key);
         int startIdx = idx;
         
-        while (this.cacLopHoc[idx] != null) {
+        while (this.cacLopHoc[idx] != null) { // lo co truong hop no bi null o giua thi sao
             if (this.cacLopHoc[idx].getmaLopHoc().equals(key)) {
                 this.cacLopHoc[idx] = null;
                 return true;
