@@ -107,8 +107,6 @@ Tìm:
 
 và cài extension của **Microsoft**.
 
-Extension này cung cấp các công cụ cần thiết để phát triển và chạy Java trong VS Code.
-
 ---
 
 ## 4.3. Mở project
@@ -121,9 +119,9 @@ Sau đó chọn thư mục:
 
 `DSA_DangKiHocPhan`
 
-VS Code sẽ nhận diện file `pom.xml` và Maven project.
+Lưu ý: phải mở **thư mục gốc của project**, là thư mục chứa file `pom.xml`.
 
-Nếu VS Code hỏi có muốn import Maven project hay không, chọn **Yes**.
+Không mở riêng thư mục `src`.
 
 ---
 
@@ -137,7 +135,7 @@ Project sử dụng:
 - JavaFX FXML 21
 - Jackson Databind 2.17.2
 
-Lần đầu tải thư viện có thể mất một khoảng thời gian tùy tốc độ Internet.
+Lần đầu mở project cần có kết nối Internet để Maven tải các dependency.
 
 > Không cần tự tải JavaFX SDK hoặc các file `.jar`.
 
@@ -159,38 +157,37 @@ Kiểm tra và đảm bảo VS Code đang sử dụng:
 
 **JDK 21**
 
-Sau khi cấu hình xong, nên khởi động lại VS Code.
-
 ---
 
-## 4.6. Chạy chương trình
+## 4.6. Chạy project
 
-Mở file:
+Project đã có cấu hình chạy trong thư mục `.vscode`.
 
-`App.java`
+Để chạy project, **không sử dụng nút `Run Java` xuất hiện phía trên `main()`**.
 
-Nếu `App.java` có phương thức:
+Thay vào đó:
 
-```java
-public static void main(String[] args)
-```
+1. Mở project trong VS Code.
+2. Nhấn:
 
-VS Code sẽ hiển thị nút **Run** hoặc **Run Java**.
+   `F5`
 
-Nhấn **Run** để chạy chương trình.
+   hoặc mở:
 
-Nếu project đã có cấu hình chạy trong thư mục `.vscode`, có thể sử dụng:
+   **Run and Debug**
 
-**Run and Debug**
+3. Chọn cấu hình chạy của project nếu VS Code yêu cầu.
+4. Nhấn:
 
-hoặc nhấn:
+   **Start Debugging**
 
-`Ctrl + Shift + D`
+VS Code sẽ sử dụng cấu hình trong:
 
-Sau đó chọn cấu hình chạy và nhấn nút **Run**.
+`.vscode/launch.json`
 
----
+để khởi chạy ứng dụng JavaFX.
 
+> **Lưu ý:** Với project này, hãy chạy bằng **F5 / Run and Debug**, không chạy bằng nút **Run Java** trong `App.java`.
 # 5. Chạy project bằng IntelliJ IDEA
 
 ## 5.1. Cài IntelliJ IDEA
