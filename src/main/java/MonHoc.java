@@ -145,11 +145,11 @@ public class MonHoc {
     public String[] getMonTienQuyet() {return this.monTienQuyet;}
     public String[] getMonHocTruoc() {return this.monHocTruoc;}
     public LopHoc[] getCacLopHoc() {
-    int dem = 0;
+    int size = 0;
     for (int i = 0; i < cacLopHoc.length; i++) {
-        if (cacLopHoc[i] != null) dem++;
+        if (cacLopHoc[i] != null) size++;
     }
-    LopHoc[] kq = new LopHoc[dem];
+    LopHoc[] kq = new LopHoc[size];
     int k = 0;
     for ( int i = 0; i < cacLopHoc.length; i++) {
         if ( cacLopHoc[i]  != null) {
