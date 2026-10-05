@@ -2,7 +2,6 @@
 -Struct ThoiGian: 1 buổi học của lớp gồm thứ, tiết đầu, tiết cuối
 -Quy ước đợt 1: thứ 2 là 0, rồi tăng dần lên
 -Quy ước đợt 2: thứ 2 là 7
--Hàm trung(ThoiGian o): kiểm tra 2 buổi học có trùng giờ ko (cùng thứ và các tiết giao nhau)
 */
 
 import com.fasterxml.jackson.annotation.JsonCreator;
