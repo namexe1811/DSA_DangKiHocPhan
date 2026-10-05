@@ -92,7 +92,7 @@ public class SinhVien {
     }
 
     // Kiểm tra mọi điều kiện đăng kí. Trả về null nếu hợp lệ, ngược lại trả về lý do.
-    private String kiemTraDangKi(MonHoc mon, LopHoc lop) {
+    public String kiemTraDangKi(MonHoc mon, LopHoc lop) {
         // 1. đã đăng kí môn này chưa
         if (monDaDangKi.tonTai(mon.getmaHocPhan())) {
             return "Da dang ky mon " + mon.getmaHocPhan() + " roi.";

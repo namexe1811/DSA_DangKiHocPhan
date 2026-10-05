@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng ký học phần</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f6f8;--ink:#14263a;--mute:#5f7183;--line:#dbe3ea;--brand:#0b5d73;--brand-d:#08485a;--bad:#b3322b;--tint:#e3f0f4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Be Vietnam Pro",system-ui,"Segoe UI",sans-serif}
+button,input,select{font:inherit}
+header{background:var(--brand);color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:18px;margin:0}
+.who{display:flex;gap:12px;align-items:center}
+.btn{border:0;border-radius:6px;padding:6px 12px;cursor:pointer;font-weight:500;background:var(--brand);color:#fff}
+.btn:hover{background:var(--brand-d)}
+.btn.ghost{background:none;border:1px solid #fff}
+.btn.danger{background:var(--bad)}
+.btn.alt{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+:focus-visible{outline:3px solid #f2b705;outline-offset:2px}
+main{max-width:1250px;margin:0 auto;padding:20px;display:grid;gap:20px;grid-template-columns:1.1fr 1fr}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.panel h2{margin:0 0 12px;font-size:16px}
+.tools{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tools input,.tools select{padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:#fff}
+.tools input{flex:1;min-width:150px}
+.course{border:1px solid var(--line);border-radius:6px;margin-bottom:10px}
+.ch{padding:10px 12px;background:var(--tint);border-radius:6px 6px 0 0}
+.tag{margin-left:8px;font-size:12px;color:#fff;background:var(--brand);border-radius:10px;padding:1px 8px}
+.sub{color:var(--mute);font-size:13px}
+.lop{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 12px;border-top:1px solid var(--line)}
+.lop.mine{background:#f0f8f3}
+.why{color:var(--bad);font-size:13px;margin-top:2px}
+.summary{display:flex;justify-content:space-between;align-items:baseline}
+.summary b{font-size:22px}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--brand)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th,td{border:1px solid var(--line);text-align:center;padding:2px;font-size:12px;height:30px}
+th:first-child{width:44px}
+td.cls{background:var(--tint);border-left:3px solid var(--brand);text-align:left;padding:3px 5px;vertical-align:top;line-height:1.3;overflow:hidden}
+.seg{display:flex;gap:6px;margin-bottom:10px}
+.seg button{flex:1}
+.reglist{padding:0;margin:14px 0 0;list-style:none}
+.reglist li{padding:7px 0;border-bottom:1px solid var(--line)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:6px;max-width:90vw;display:none;z-index:9}
+#toast.err{background:var(--bad)}
+#login{max-width:340px;margin:12vh auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:24px}
+#login h1{font-size:20px;margin:0 0 4px}
+#login label{display:block;margin-top:12px;font-size:13px;color:var(--mute)}
+#login input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;margin-top:4px}
+#login .btn{width:100%;margin-top:18px;padding:10px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<section id="login">
+  <h1>Đăng ký học phần</h1>
+  <div class="sub">Đăng nhập bằng tài khoản sinh viên</div>
+  <label for="u">Mã số sinh viên</label><input id="u" inputmode="numeric" autocomplete="username">
+  <label for="p">Mật khẩu</label><input id="p" type="password" autocomplete="current-password">
+  <button class="btn" id="loginBtn">Đăng nhập</button>
+</section>
+
+<div id="app" hidden>
+<header>
+  <h1>Đăng ký học phần</h1>
+  <div class="who"><span id="who"></span><button class="btn ghost" id="logout">Đăng xuất</button></div>
+</header>
+<main>
+  <section class="panel">
+    <h2>Môn học và lớp học phần</h2>
+    <div class="tools">
+      <input id="q" type="search" placeholder="Tìm theo mã hoặc tên môn" aria-label="Tìm môn học">
+      <select id="dotF" aria-label="Lọc theo đợt"><option value="">Cả hai đợt</option><option value="1">Đợt 1</option><option value="2">Đợt 2</option></select>
+    </div>
+    <div id="courses"></div>
+  </section>
+  <section class="panel">
+    <div class="summary"><h2 style="margin:0">Đã đăng ký</h2><span><b id="credits">0</b> / <span id="maxc"></span> tín chỉ</span></div>
+    <div class="bar"><i id="bar" style="width:0"></i></div>
+    <div class="seg"><button class="btn" id="d1">Thời khóa biểu đợt 1</button><button class="btn alt" id="d2">Thời khóa biểu đợt 2</button></div>
+    <div class="scroll"><table id="tt"></table></div>
+    <ul class="reglist" id="reglist"></ul>
+  </section>
+</main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const API = "/api";               // cùng origin với Server.java
+const DAYS = ["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","CN"];
+let token = null, S = null, dot = 1;
+const $ = id => document.getElementById(id);
+
+async function call(path, body){
+  const r = await fetch(API + path, {
+    method: body ? "POST" : "GET",
+    headers: {"Content-Type":"application/json", ...(token ? {Authorization:"Bearer " + token} : {})},
+    body: body ? JSON.stringify(body) : undefined
+  });
+  const j = await r.json().catch(() => ({}));
+  if(!r.ok) throw new Error(j.message || "Lỗi " + r.status);
+  return j;
+}
+function toast(msg, bad){
+  const t = $("toast"); t.textContent = msg; t.className = bad ? "err" : ""; t.style.display = "block";
+  clearTimeout(toast.h); toast.h = setTimeout(() => t.style.display = "none", 3500);
+}
+// thu 0-6 = đợt 1 (thứ 2..CN), thu 7-13 = đợt 2; tiết lưu từ 0
+const dotOf = l => l.thoiGianHoc[0].thu >= 7 ? 2 : 1;
+const lich = l => l.thoiGianHoc.map(t => `${DAYS[t.thu % 7]} tiết ${t.tietDau + 1}–${t.tietCuoi + 1}`).join(", ");
+
+function renderCourses(){
+  const kw = $("q").value.trim().toLowerCase(), d = $("dotF").value;
+  let h = "";
+  for(const m of S.monHoc){
+    if(kw && !(m.maHocPhan + " " + m.tenMonHoc).toLowerCase().includes(kw)) continue;
+    const lops = m.cacLopHoc.filter(l => !d || dotOf(l) == d);
+    if(!lops.length) continue;
+    const cur = m.cacLopHoc.find(l => l.daDangKy);
+    const rq = [];
+    if(m.monTienQuyet?.length) rq.push("Tiên quyết: " + m.monTienQuyet.join(", "));
+    if(m.monHocTruoc?.length) rq.push("Học trước: " + m.monHocTruoc.join(", "));
+    h += `<div class="course"><div class="ch"><b>${m.tenMonHoc}</b>${cur ? '<span class="tag">Đã đăng ký</span>' : ""}
+      <div class="sub">${m.maHocPhan}, ${m.soTinChi} tín chỉ${rq.length ? ". " + rq.join(". ") : ""}</div></div>`;
+    for(const l of lops){
+      const full = l.soLuongDaDangKi >= l.siSoToiDa;
+      const a = `data-m="${m.maHocPhan}" data-l="${l.maLopHoc}"`;
+      let btn, why = "";
+      if(l.daDangKy) btn = `<button class="btn danger" data-a="huy" ${a}>Hủy lớp</button>`;
+      else if(cur) btn = `<button class="btn alt" data-a="doi" ${a} data-o="${cur.maLopHoc}" ${full ? "disabled" : ""}>Đổi sang lớp này</button>`;
+      else { btn = `<button class="btn" data-a="dk" ${a} ${l.loi ? "disabled" : ""}>Đăng ký</button>`; if(l.loi) why = `<div class="why">${l.loi}</div>`; }
+      h += `<div class="lop ${l.daDangKy ? "mine" : ""}"><div><b>${l.maLopHoc}</b> <span class="sub">GV ${l.tenGiaoVien}, đợt ${dotOf(l)}</span>
+        <div class="sub">${lich(l)}. Sĩ số ${l.soLuongDaDangKi}/${l.siSoToiDa}</div>${why}</div>${btn}</div>`;
+    }
+    h += "</div>";
+  }
+  $("courses").innerHTML = h || '<p class="sub">Không có môn nào khớp. Thử đổi từ khóa hoặc bỏ lọc đợt.</p>';
+}
+
+function renderTT(){
+  const rows = S.sv.thoiKhoaBieu.slice((dot - 1) * 7, (dot - 1) * 7 + 7); // [ngày][tiết]
+  const name = {};
+  S.monHoc.forEach(m => m.cacLopHoc.forEach(l => name[l.maLopHoc] = m.tenMonHoc));
+  const skip = {};
+  let h = "<thead><tr><th>Tiết</th>" + DAYS.map(d => `<th>${d}</th>`).join("") + "</tr></thead><tbody>";
+  for(let t = 0; t < 12; t++){
+    h += `<tr><th>${t + 1}</th>`;
+    for(let d = 0; d < 7; d++){
+      if(skip[t + "-" + d]) continue;
+      const c = rows[d][t];
+      if(!c){ h += "<td></td>"; continue; }
+      let n = 1;
+      while(t + n < 12 && rows[d][t + n] === c){ skip[(t + n) + "-" + d] = 1; n++; }
+      h += `<td class="cls" rowspan="${n}"><b>${name[c] || c}</b><br>${c}</td>`;
+    }
+    h += "</tr>";
+  }
+  $("tt").innerHTML = h + "</tbody>";
+  $("d1").className = "btn" + (dot === 1 ? "" : " alt");
+  $("d2").className = "btn" + (dot === 2 ? "" : " alt");
+}
+
+function renderSide(){
+  const sv = S.sv;
+  $("credits").textContent = sv.soTinDangKi; $("maxc").textContent = sv.toiDa;
+  $("bar").style.width = Math.min(100, sv.soTinDangKi / sv.toiDa * 100) + "%";
+  const mine = [];
+  S.monHoc.forEach(m => m.cacLopHoc.forEach(l => { if(l.daDangKy) mine.push([m, l]); }));
+  $("reglist").innerHTML = mine.length
+    ? mine.map(([m, l]) => `<li><b>${m.tenMonHoc}</b> <span class="sub">lớp ${l.maLopHoc}, ${m.soTinChi} tín chỉ</span><div class="sub">${lich(l)}</div></li>`).join("")
+    : '<li class="sub">Chưa đăng ký lớp nào. Chọn lớp ở danh sách bên trái.</li>';
+}
+const renderAll = () => { renderCourses(); renderTT(); renderSide(); };
+
+document.addEventListener("click", async e => {
+  const b = e.target.closest("[data-a]"); if(!b) return;
+  const {a, m, l, o} = b.dataset;
+  if(a === "huy" && !confirm("Hủy đăng ký lớp " + l + "?")) return;
+  try{
+    S = await call({dk:"/dang-ki", huy:"/huy", doi:"/doi"}[a],
+      {maHocPhan:m, maLopHoc:l, maLopCu:o, maLopMoi:l});
+    renderAll();
+    toast(a === "dk" ? "Đã đăng ký lớp " + l : a === "huy" ? "Đã hủy lớp " + l : "Đã đổi sang lớp " + l);
+  }catch(x){ toast(x.message, true); }
+});
+$("q").addEventListener("input", renderCourses);
+$("dotF").addEventListener("change", renderCourses);
+$("d1").onclick = () => { dot = 1; renderTT(); };
+$("d2").onclick = () => { dot = 2; renderTT(); };
+
+async function doLogin(){
+  try{
+    token = (await call("/login", {mssv:$("u").value, matKhau:$("p").value})).token;
+    S = await call("/state");
+    $("who").textContent = S.sv.ten + " (" + S.sv.mssv + ")";
+    $("login").hidden = true; $("app").hidden = false;
+    renderAll();
+  }catch(x){ token = null; toast(x.message, true); }
+}
+$("loginBtn").onclick = doLogin;
+$("p").addEventListener("keydown", e => { if(e.key === "Enter") doLogin(); });
+$("logout").onclick = () => { token = null; S = null; $("p").value = ""; $("app").hidden = true; $("login").hidden = false; };
+</script>
+</body>
+</html>
