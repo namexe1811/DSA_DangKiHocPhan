@@ -1,233 +1,357 @@
 {
-    "danhSachMonHoc": [
+  "danhSachMonHoc" : [
+    {
+      "soTinChi" : 3,
+      "tenMonHoc" : "Dai so tuyen tinh",
+      "maHocPhan" : "DSTT2025",
+      "monHocTruoc" : [ ],
+      "monTienQuyet" : [ ],
+      "cacLopHoc" : [
         {
-            "maHocPhan": "DSTT2025",
-            "tenMonHoc": "Dai so tuyen tinh",
-            "soTinChi": 3,
-            "monHocTruoc": [],
-            "monTienQuyet": [],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "DSTT2025001",
-                    "tenGiaoVien": "Nguyen Cong Phuong",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 3,
-                    "thoiGianHoc": [
-                        { "thu": 0, "tietDau": 0, "tietCuoi": 3 },
-                        { "thu": 2, "tietDau": 0, "tietCuoi": 3 }
-                    ],
-                    "maHocPhan": "DSTT2025",
-                    "danhSachSinhVien": [25110001, 25110002, 25110010]
-                },
-                {
-                    "maLopHoc": "DSTT2025002",
-                    "tenGiaoVien": "Bui Tien Dung",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 2,
-                    "thoiGianHoc": [
-                        { "thu": 7, "tietDau": 0, "tietCuoi": 3 },
-                        { "thu": 9, "tietDau": 0, "tietCuoi": 3 }
-                    ],
-                    "maHocPhan": "DSTT2025",
-                    "danhSachSinhVien": [25486003, 25512008]
-                }
-            ]
+          "maLopHoc" : "DSTT2025002",
+          "tenGiaoVien" : "Bui Tien Dung",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "DSTT2025",
+          "thoiGianHoc" : [
+            {
+              "thu" : 7,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            },
+            {
+              "thu" : 9,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            }
+          ],
+          "danhSachSinhVien" : [
+            25110001,
+            25486003,
+            25512008
+          ],
+          "soLuongDaDangKi" : 3
         },
         {
-            "maHocPhan": "LTCB1001",
-            "tenMonHoc": "Lap trinh co ban",
-            "soTinChi": 3,
-            "monHocTruoc": [],
-            "monTienQuyet": [],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "LTCB1001001",
-                    "tenGiaoVien": "Le Thi B",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 1,
-                    "thoiGianHoc": [
-                        { "thu": 1, "tietDau": 0, "tietCuoi": 3 },
-                        { "thu": 3, "tietDau": 0, "tietCuoi": 3 }
-                    ],
-                    "maHocPhan": "LTCB1001",
-                    "danhSachSinhVien": [25110002]
-                },
-                {
-                    "maLopHoc": "LTCB1001002",
-                    "tenGiaoVien": "Pham Van C",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 1,
-                    "thoiGianHoc": [
-                        { "thu": 8, "tietDau": 0, "tietCuoi": 3 },
-                        { "thu": 10, "tietDau": 0, "tietCuoi": 3 }
-                    ],
-                    "maHocPhan": "LTCB1001",
-                    "danhSachSinhVien": [25110006]
-                }
-            ]
-        },
-        {
-            "maHocPhan": "CTDL2026",
-            "tenMonHoc": "Cau truc du lieu va gia thuat",
-            "soTinChi": 4,
-            "monHocTruoc": ["LTCB1001"],
-            "monTienQuyet": [],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "CTDL2026001",
-                    "tenGiaoVien": "Tran Van A",
-                    "siSoToiDa": 100,
-                    "soLuongDaDangKi": 2,
-                    "thoiGianHoc": [
-                        { "thu": 1, "tietDau": 2, "tietCuoi": 5 },
-                        { "thu": 3, "tietDau": 2, "tietCuoi": 5 }
-                    ],
-                    "maHocPhan": "CTDL2026",
-                    "danhSachSinhVien": [25110001, 25486003]
-                }
-            ]
-        },
-        {
-            "maHocPhan": "KTLT1002",
-            "tenMonHoc": "Ky thuat lap trinh",
-            "soTinChi": 3,
-            "monHocTruoc": [],
-            "monTienQuyet": ["LTCB1001"],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "KTLT1002001",
-                    "tenGiaoVien": "Hoang Van D",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 1,
-                    "thoiGianHoc": [
-                        { "thu": 4, "tietDau": 0, "tietCuoi": 4 }
-                    ],
-                    "maHocPhan": "KTLT1002",
-                    "danhSachSinhVien": [25110004]
-                }
-            ]
-        },
-        {
-            "maHocPhan": "CSDL2027",
-            "tenMonHoc": "Co so du lieu",
-            "soTinChi": 3,
-            "monHocTruoc": ["LTCB1001"],
-            "monTienQuyet": [],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "CSDL2027001",
-                    "tenGiaoVien": "Vu Thi E",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 2,
-                    "thoiGianHoc": [
-                        { "thu": 4, "tietDau": 5, "tietCuoi": 9 }
-                    ],
-                    "maHocPhan": "CSDL2027",
-                    "danhSachSinhVien": [25110004, 25110009]
-                }
-            ]
-        },
-        {
-            "maHocPhan": "MANG2028",
-            "tenMonHoc": "Mang may tinh",
-            "soTinChi": 3,
-            "monHocTruoc": [],
-            "monTienQuyet": [],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "MANG2028001",
-                    "tenGiaoVien": "Dinh Van F",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 2,
-                    "thoiGianHoc": [
-                        { "thu": 5, "tietDau": 0, "tietCuoi": 3 },
-                        { "thu": 6, "tietDau": 0, "tietCuoi": 3 }
-                    ],
-                    "maHocPhan": "MANG2028",
-                    "danhSachSinhVien": [25110006, 25512008]
-                }
-            ]
-        },
-        {
-            "maHocPhan": "HDH2029",
-            "tenMonHoc": "He dieu hanh",
-            "soTinChi": 3,
-            "monHocTruoc": ["CTDL2026"],
-            "monTienQuyet": ["CTDL2026"],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "HDH2029001",
-                    "tenGiaoVien": "Ngo Van G",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 1,
-                    "thoiGianHoc": [
-                        { "thu": 11, "tietDau": 0, "tietCuoi": 3 },
-                        { "thu": 13, "tietDau": 0, "tietCuoi": 3 }
-                    ],
-                    "maHocPhan": "HDH2029",
-                    "danhSachSinhVien": [25512005]
-                }
-            ]
-        },
-        {
-            "maHocPhan": "OOP2030",
-            "tenMonHoc": "Lap trinh huong doi tuong",
-            "soTinChi": 3,
-            "monHocTruoc": ["LTCB1001"],
-            "monTienQuyet": [],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "OOP2030001",
-                    "tenGiaoVien": "Ly Van H",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 1,
-                    "thoiGianHoc": [
-                        { "thu": 12, "tietDau": 0, "tietCuoi": 4 }
-                    ],
-                    "maHocPhan": "OOP2030",
-                    "danhSachSinhVien": [25512005]
-                }
-            ]
-        },
-        {
-            "maHocPhan": "WEB2031",
-            "tenMonHoc": "Lap trinh web",
-            "soTinChi": 3,
-            "monHocTruoc": ["CSDL2027"],
-            "monTienQuyet": [],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "WEB2031001",
-                    "tenGiaoVien": "Trinh Van I",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 1,
-                    "thoiGianHoc": [
-                        { "thu": 12, "tietDau": 5, "tietCuoi": 9 }
-                    ],
-                    "maHocPhan": "WEB2031",
-                    "danhSachSinhVien": [25486007]
-                }
-            ]
-        },
-        {
-            "maHocPhan": "TACN2032",
-            "tenMonHoc": "Tieng Anh chuyen nganh",
-            "soTinChi": 2,
-            "monHocTruoc": [],
-            "monTienQuyet": [],
-            "cacLopHoc": [
-                {
-                    "maLopHoc": "TACN2032001",
-                    "tenGiaoVien": "Nguyen Thi K",
-                    "siSoToiDa": 45,
-                    "soLuongDaDangKi": 2,
-                    "thoiGianHoc": [
-                        { "thu": 5, "tietDau": 5, "tietCuoi": 9 }
-                    ],
-                    "maHocPhan": "TACN2032",
-                    "danhSachSinhVien": [25486007, 25110009]
-                }
-            ]
+          "maLopHoc" : "DSTT2025001",
+          "tenGiaoVien" : "Nguyen Cong Phuong",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "DSTT2025",
+          "thoiGianHoc" : [
+            {
+              "thu" : 0,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            },
+            {
+              "thu" : 2,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            }
+          ],
+          "danhSachSinhVien" : [
+            25110002,
+            25110010
+          ],
+          "soLuongDaDangKi" : 2
         }
-    ]
+      ]
+    },
+    {
+      "soTinChi" : 3,
+      "tenMonHoc" : "He dieu hanh",
+      "maHocPhan" : "HDH2029",
+      "monHocTruoc" : [
+        "CTDL2026"
+      ],
+      "monTienQuyet" : [
+        "CTDL2026"
+      ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "HDH2029001",
+          "tenGiaoVien" : "Ngo Van G",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "HDH2029",
+          "thoiGianHoc" : [
+            {
+              "thu" : 11,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            },
+            {
+              "thu" : 13,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            }
+          ],
+          "danhSachSinhVien" : [
+            25512005
+          ],
+          "soLuongDaDangKi" : 1
+        }
+      ]
+    },
+    {
+      "soTinChi" : 4,
+      "tenMonHoc" : "Cau truc du lieu va gia thuat",
+      "maHocPhan" : "CTDL2026",
+      "monHocTruoc" : [
+        "LTCB1001"
+      ],
+      "monTienQuyet" : [ ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "CTDL2026001",
+          "tenGiaoVien" : "Tran Van A",
+          "siSoToiDa" : 100,
+          "maHocPhan" : "CTDL2026",
+          "thoiGianHoc" : [
+            {
+              "thu" : 1,
+              "tietDau" : 2,
+              "tietCuoi" : 5
+            },
+            {
+              "thu" : 3,
+              "tietDau" : 2,
+              "tietCuoi" : 5
+            }
+          ],
+          "danhSachSinhVien" : [
+            25486003,
+            25110001
+          ],
+          "soLuongDaDangKi" : 2
+        }
+      ]
+    },
+    {
+      "soTinChi" : 3,
+      "tenMonHoc" : "Mang may tinh",
+      "maHocPhan" : "MANG2028",
+      "monHocTruoc" : [ ],
+      "monTienQuyet" : [ ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "MANG2028001",
+          "tenGiaoVien" : "Dinh Van F",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "MANG2028",
+          "thoiGianHoc" : [
+            {
+              "thu" : 5,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            },
+            {
+              "thu" : 6,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            }
+          ],
+          "danhSachSinhVien" : [
+            25110001,
+            25110006,
+            25512008,
+            25110263
+          ],
+          "soLuongDaDangKi" : 4
+        }
+      ]
+    },
+    {
+      "soTinChi" : 3,
+      "tenMonHoc" : "Co so du lieu",
+      "maHocPhan" : "CSDL2027",
+      "monHocTruoc" : [
+        "LTCB1001"
+      ],
+      "monTienQuyet" : [ ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "CSDL2027001",
+          "tenGiaoVien" : "Vu Thi E",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "CSDL2027",
+          "thoiGianHoc" : [
+            {
+              "thu" : 4,
+              "tietDau" : 5,
+              "tietCuoi" : 9
+            }
+          ],
+          "danhSachSinhVien" : [
+            25110004,
+            25110009
+          ],
+          "soLuongDaDangKi" : 2
+        }
+      ]
+    },
+    {
+      "soTinChi" : 3,
+      "tenMonHoc" : "Lap trinh huong doi tuong",
+      "maHocPhan" : "OOP2030",
+      "monHocTruoc" : [
+        "LTCB1001"
+      ],
+      "monTienQuyet" : [ ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "OOP2030001",
+          "tenGiaoVien" : "Ly Van H",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "OOP2030",
+          "thoiGianHoc" : [
+            {
+              "thu" : 12,
+              "tietDau" : 0,
+              "tietCuoi" : 4
+            }
+          ],
+          "danhSachSinhVien" : [
+            25512005
+          ],
+          "soLuongDaDangKi" : 1
+        }
+      ]
+    },
+    {
+      "soTinChi" : 3,
+      "tenMonHoc" : "Ky thuat lap trinh",
+      "maHocPhan" : "KTLT1002",
+      "monHocTruoc" : [ ],
+      "monTienQuyet" : [
+        "LTCB1001"
+      ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "KTLT1002001",
+          "tenGiaoVien" : "Hoang Van D",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "KTLT1002",
+          "thoiGianHoc" : [
+            {
+              "thu" : 4,
+              "tietDau" : 0,
+              "tietCuoi" : 4
+            }
+          ],
+          "danhSachSinhVien" : [
+            25110001,
+            25110004
+          ],
+          "soLuongDaDangKi" : 2
+        }
+      ]
+    },
+    {
+      "soTinChi" : 3,
+      "tenMonHoc" : "Lap trinh co ban",
+      "maHocPhan" : "LTCB1001",
+      "monHocTruoc" : [ ],
+      "monTienQuyet" : [ ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "LTCB1001002",
+          "tenGiaoVien" : "Pham Van C",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "LTCB1001",
+          "thoiGianHoc" : [
+            {
+              "thu" : 8,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            },
+            {
+              "thu" : 10,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            }
+          ],
+          "danhSachSinhVien" : [
+            25110006
+          ],
+          "soLuongDaDangKi" : 1
+        },
+        {
+          "maLopHoc" : "LTCB1001001",
+          "tenGiaoVien" : "Le Thi B",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "LTCB1001",
+          "thoiGianHoc" : [
+            {
+              "thu" : 1,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            },
+            {
+              "thu" : 3,
+              "tietDau" : 0,
+              "tietCuoi" : 3
+            }
+          ],
+          "danhSachSinhVien" : [
+            25110002
+          ],
+          "soLuongDaDangKi" : 1
+        }
+      ]
+    },
+    {
+      "soTinChi" : 3,
+      "tenMonHoc" : "Lap trinh web",
+      "maHocPhan" : "WEB2031",
+      "monHocTruoc" : [
+        "CSDL2027"
+      ],
+      "monTienQuyet" : [ ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "WEB2031001",
+          "tenGiaoVien" : "Trinh Van I",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "WEB2031",
+          "thoiGianHoc" : [
+            {
+              "thu" : 12,
+              "tietDau" : 5,
+              "tietCuoi" : 9
+            }
+          ],
+          "danhSachSinhVien" : [
+            25486007
+          ],
+          "soLuongDaDangKi" : 1
+        }
+      ]
+    },
+    {
+      "soTinChi" : 2,
+      "tenMonHoc" : "Tieng Anh chuyen nganh",
+      "maHocPhan" : "TACN2032",
+      "monHocTruoc" : [ ],
+      "monTienQuyet" : [ ],
+      "cacLopHoc" : [
+        {
+          "maLopHoc" : "TACN2032001",
+          "tenGiaoVien" : "Nguyen Thi K",
+          "siSoToiDa" : 45,
+          "maHocPhan" : "TACN2032",
+          "thoiGianHoc" : [
+            {
+              "thu" : 5,
+              "tietDau" : 5,
+              "tietCuoi" : 9
+            }
+          ],
+          "danhSachSinhVien" : [
+            25486007,
+            25110009
+          ],
+          "soLuongDaDangKi" : 2
+        }
+      ]
+    }
+  ]
 }
